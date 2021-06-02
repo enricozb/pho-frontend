@@ -12,6 +12,6 @@
     height: 50px;
     display: flex;
 
-    outline: 1px solid red;
+    outline: 0.5px solid #ddd;
   }
 </style>
