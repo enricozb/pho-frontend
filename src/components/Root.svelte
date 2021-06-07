@@ -1,19 +1,19 @@
 <script lang="ts">
-  import Topbar from './topbar/Topbar.svelte';
-  import Sidebar from './sidebar/Sidebar.svelte';
   import PhotoGrid from './photogrid/PhotoGrid.svelte';
+  import Sidebar from './sidebar/Sidebar.svelte';
+  import Topbar from './topbar/Topbar.svelte';
 
-  let sidebarActive = false;
+  let sidebar_active = false;
 </script>
 
-<div>
-  <Topbar bind:sidebarActive/>
-  <main>
-    {#if sidebarActive}
+<div id="all">
+  <Topbar bind:sidebar_active/>
+  <div id="main">
+    {#if sidebar_active}
       <Sidebar/>
     {/if}
     <PhotoGrid/>
-  </main>
+  </div>
 </div>
 
 <style>
@@ -21,16 +21,13 @@
     padding: 0px;
   }
 
-  main {
+  #main {
     display: flex;
     height: 100%;
-    outline: 1px solid blue;
   }
 
-  div {
+  #all {
     height: 100%;
     width: 100%;
-
-    outline: 1px solid green;
   }
 </style>

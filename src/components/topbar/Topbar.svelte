@@ -2,11 +2,11 @@
   import MenuButton from './MenuButton.svelte';
   import UploadButton from './UploadButton.svelte';
 
-  export let sidebarActive;
+  export let sidebar_active;
 </script>
 
 <div>
-  <MenuButton bind:active={sidebarActive}/>
+  <MenuButton bind:active={sidebar_active}/>
   <UploadButton/>
 </div>
 

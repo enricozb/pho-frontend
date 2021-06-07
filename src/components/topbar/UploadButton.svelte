@@ -9,6 +9,7 @@
   let currently_imporing = false;
   let import_id = "";
 
+  // TODO(enricozb) move this to a hidden component
   async function heartbeat() {
     await fetch("http://localhost:4000/heartbeat")
       .then((res) => res.json())
@@ -28,6 +29,7 @@
   async function importFiles() {
     if (files.length > 0) {
       const paths = [...files].map((f) => f.path as string);
+      // TODO(enricozb): switch to axios
       await fetch("http://localhost:4000/import/new", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

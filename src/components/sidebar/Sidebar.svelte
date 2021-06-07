@@ -8,6 +8,6 @@
 
     height: calc(100% - 50px);
 
-    border-right: 0.5px solid red;
+    border-right: 0.5px solid #ddd;
   }
 </style>

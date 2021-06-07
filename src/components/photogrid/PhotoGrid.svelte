@@ -1,1 +1,1 @@
-<div>hello</div>
+<div>photo grid</div>
