@@ -1,16 +1,20 @@
 <script lang="ts">
   import Topbar from './topbar/Topbar.svelte';
   import Sidebar from './sidebar/Sidebar.svelte';
+  import PhotoGrid from './photogrid/PhotoGrid.svelte';
 
   let sidebarActive = false;
 </script>
 
-<main>
+<div>
   <Topbar bind:sidebarActive/>
-  {#if sidebarActive}
-    <Sidebar/>
-  {/if}
-</main>
+  <main>
+    {#if sidebarActive}
+      <Sidebar/>
+    {/if}
+    <PhotoGrid/>
+  </main>
+</div>
 
 <style>
   :global(body) {
@@ -18,6 +22,12 @@
   }
 
   main {
+    display: flex;
+    height: 100%;
+    outline: 1px solid blue;
+  }
+
+  div {
     height: 100%;
     width: 100%;
 

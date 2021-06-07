@@ -6,12 +6,10 @@
   "scripts": {
     "build-electron": "run-s build start-electron",
     "electron": "electron .",
-
     "build-svelte": "rollup -c",
     "svelte": "rollup -c -w",
     "start": "sirv public --no-clear",
     "validate": "svelte-check",
-
     "svelte-electron": "run-p svelte electron"
   },
   "devDependencies": {
@@ -21,6 +19,8 @@
     "@tsconfig/svelte": "^1.0.0",
     "electron": "^13.0.1",
     "npm-run-all": "^4.1.5",
+    "prettier": "^2.3.1",
+    "prettier-plugin-svelte": "^2.3.0",
     "rollup": "^2.3.4",
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-livereload": "^2.0.0",
@@ -33,6 +33,7 @@
     "typescript": "^4.0.0"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "sirv-cli": "^1.0.0"
   }
 }
