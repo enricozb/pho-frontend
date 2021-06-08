@@ -2,8 +2,8 @@
   import { onDestroy } from "svelte";
   import axios from "axios";
 
-  export let in_progress: Boolean = true;
-  export let import_id: String;
+  export let in_progress: boolean = true;
+  export let import_id: string;
 
   let status = "STARTING";
 

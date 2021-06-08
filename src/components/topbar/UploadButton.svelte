@@ -1,57 +1,39 @@
 <script lang="ts">
+  import axios from "axios";
   import ImportProgress from "./ImportProgress.svelte";
-
-  let files: FileList;
-
-  let connection_status: String = "";
-  let connection_error: Error | null;
+  import Heartbeat from "./Heartbeat.svelte";
+  import type { HeartbeatStatus } from "./Heartbeat.svelte";
 
   let currently_imporing = false;
-  let import_id = "";
-
-  // TODO(enricozb) move this to a hidden component
-  async function heartbeat() {
-    await fetch("http://localhost:4000/heartbeat")
-      .then((res) => res.json())
-      .then((json) => {
-        connection_status = json.status;
-        connection_error = null;
-      })
-      .catch((err) => {
-        connection_error = err;
-      });
-  }
-
-  // heartbeat() every 2s, starting immediately
-  heartbeat();
-  setInterval(heartbeat, 2000);
+  let files: FileList;
+  let import_id: string;
+  let status: HeartbeatStatus = { connected: false };
 
   async function importFiles() {
     if (files.length > 0) {
       const paths = [...files].map((f) => f.path as string);
-      // TODO(enricozb): switch to axios
-      await fetch("http://localhost:4000/import/new", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ opts: { paths } }),
-      })
-        .then((res) => {
-          return res.json();
+      await axios
+        .post<any, { id: string }>("http://localhost:4000/import/new", {
+          opts: { paths },
         })
         .then((json) => {
           currently_imporing = true;
           import_id = json.id;
+        })
+        .catch((err) => {
+          alert(err);
         });
-      // TODO(enricozb): catch error
     }
   }
 </script>
 
+<Heartbeat bind:status />
+
 {#if currently_imporing}
   <ImportProgress bind:in_progress={currently_imporing} {import_id} />
-{:else if connection_error}
+{:else if status.error}
   <div class="error" />
-{:else if connection_status == "ok"}
+{:else if status.connected}
   <label for="file-input" class="ready" />
   <input
     id="file-input"
