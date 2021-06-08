@@ -23,7 +23,7 @@
 
   #main {
     display: flex;
-    height: 100%;
+    height: calc(100% - 50px);
   }
 
   #all {
