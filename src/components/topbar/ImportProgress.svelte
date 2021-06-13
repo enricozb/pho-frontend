@@ -17,7 +17,6 @@
       })
       .then((json) => {
         // TODO(enricozb): use sockets instead of periodic fetch
-        console.log(json);
         interval = setInterval(() => checkStatus(json.data.id), 1000);
       })
       .catch(alert);
