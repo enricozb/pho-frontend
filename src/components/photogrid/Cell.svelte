@@ -7,7 +7,7 @@
 
 <img
   alt="a media cell"
-  src={`http://localhost:4000${file.endpoints.thumb}`}
+  src={`http://localhost:4000${file.endpoints.data}`}
   style={`height: ${height}px`}
   on:click={() => console.log(file.id, file.dimensions.width, file.dimensions.height)}
 />

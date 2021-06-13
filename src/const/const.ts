@@ -1,5 +1,5 @@
-export const ROW_MAX_HEIGHT = 180;
-export const ROW_MIN_HEIGHT = 160;
+export const ROW_MAX_HEIGHT = 250;
+export const ROW_MIN_HEIGHT = 180;
 
 export let ROW_MAX_WIDTH: number;
 
