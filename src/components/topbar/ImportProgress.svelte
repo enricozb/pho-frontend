@@ -1,27 +1,39 @@
 <script lang="ts">
-  import { onDestroy } from "svelte";
   import axios from "axios";
+  import { onDestroy } from "svelte";
 
-  export let in_progress: boolean = true;
-  export let import_id: string;
+  export let files: FileList;
 
   let status = "STARTING";
 
-  function update() {
-    axios
-      .get(`http://localhost:4000/import/${import_id}/status`)
-      .then((res) => {
-        status = res.data.status;
+  let interval: ReturnType<typeof setTimeout> | null = null;
+  onDestroy(() => clearInterval(interval));
 
-        if (status === "DONE") {
-          in_progress = false;
-        }
-      });
+  async function startImport(files: FileList) {
+    const paths = [...files].map((f) => f.path as string);
+    await axios
+      .post<{ id: string }>("http://localhost:4000/import/new", {
+        opts: { paths },
+      })
+      .then((json) => {
+        // TODO(enricozb): use sockets instead of periodic fetch
+        console.log(json);
+        interval = setInterval(() => checkStatus(json.data.id), 1000);
+      })
+      .catch(alert);
   }
 
-  // TODO(enricozb): use sockets instead of periodic fetch
-  const interval = setInterval(update, 1000);
-  onDestroy(() => clearInterval(interval));
+  function checkStatus(importId: string) {
+    axios.get(`http://localhost:4000/import/${importId}/status`).then((res) => {
+      status = res.data.status;
+
+      if (status === "DONE") {
+        files = null;
+      }
+    });
+  }
+
+  startImport(files);
 </script>
 
 <div>{status}</div>
