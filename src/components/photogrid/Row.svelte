@@ -19,6 +19,6 @@
 <style>
   div {
     display: flex;
-    justify-content: center;
+    justify-content: left;
   }
 </style>

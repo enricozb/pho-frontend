@@ -30,5 +30,4 @@
     z-index: -1;
     background: #5eb0e5;
   }
-
 </style>

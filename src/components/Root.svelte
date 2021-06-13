@@ -22,7 +22,6 @@
   }
 
   #main {
-    display: flex;
     height: calc(100% - 50px);
   }
 
