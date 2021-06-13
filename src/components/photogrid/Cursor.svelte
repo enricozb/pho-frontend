@@ -7,22 +7,28 @@
     css =
       $cursor &&
       `
-      top: ${$cursor.y}px;
-      left: ${$cursor.x}px;
+      top: ${$cursor.y + $cursor.height / 2}px;
+      left: ${$cursor.x + $cursor.width / 2}px;
       height: ${$cursor.height}px;
       width: ${$cursor.width}px;
     `;
   }
 </script>
 
-<div style={css} />
+<div class="back" style={css} />
 
 <style>
   div {
-    z-index: -1;
+    transform: translateX(-50%) translateY(-50%);
     transition: top 0.1s, left 0.1s, width 0.1s, height 0.1s;
     transition-timing-function: ease;
     position: absolute;
-    background: #f0f;
+    border-radius: 3px;
   }
+
+  div.back {
+    z-index: -1;
+    background: #5eb0e5;
+  }
+
 </style>
