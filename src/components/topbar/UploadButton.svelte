@@ -1,6 +1,6 @@
 <script lang="ts">
   import ImportProgress from "./ImportProgress.svelte";
-  import { daemon } from "../../stores/heartbeat.ts";
+  import { daemon } from "../../stores/heartbeat";
 
   let files: FileList;
 </script>
