@@ -8,12 +8,12 @@
 <img
   alt="a media cell"
   src={`http://localhost:4000${file.endpoints.data}`}
-  style={`height: ${height}px`}
+  style={`height: ${height - 4}px`}
   on:click={() => console.log(file.id, file.dimensions.width, file.dimensions.height)}
 />
 
 <style>
   img {
-    outline: 5px solid white;
+    padding: 2px;
   }
 </style>
