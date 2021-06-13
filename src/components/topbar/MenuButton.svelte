@@ -2,7 +2,7 @@
   export let active = false;
 </script>
 
-<div class:open={active} on:click={() => active = !active}></div>
+<div class:open={active} on:click={() => (active = !active)} />
 
 <style>
   div {

@@ -2,6 +2,7 @@
   import axios from "axios";
   import { computeRows } from "../../alg/grid";
 
+  import Cursor from "./Cursor.svelte";
   import Row from "./Row.svelte";
 
   // TODO(enricozb): make a common fetcher that adds the endpoint for us?
@@ -12,6 +13,7 @@
   const rows = computeRows(files);
 </script>
 
+<Cursor />
 <div id="grid">
   {#await rows}
     <div>Loading...</div>

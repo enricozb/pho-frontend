@@ -1,15 +1,32 @@
 <script lang="ts">
   import type { FileMetadata } from "../../types/api";
+  import { cursor } from "../../stores/cursor";
 
   export let height: number;
   export let file: FileMetadata;
+
+  // must match double the padding in the styling
+  // TODO(enricozb): consider using var(--height)?
+  // see: https://svelte.dev/repl/4b1c649bc75f44eb9142dadc0322eccd?version=3.6.7
+  const padding = 4;
+
+  let cell: HTMLImageElement;
 </script>
 
 <img
+  bind:this={cell}
   alt="a media cell"
   src={`http://localhost:4000${file.endpoints.data}`}
-  style={`height: ${height - 4}px`}
-  on:click={() => console.log(file.id, file.dimensions.width, file.dimensions.height)}
+  style={`height: ${height - padding}px`}
+  on:click={() =>
+    console.log(file.id, file.dimensions.width, file.dimensions.height)}
+  on:mouseover={() =>
+    cursor.update((_) => ({
+      x: cell.offsetLeft,
+      y: cell.offsetTop,
+      width: cell.width + padding,
+      height: cell.height + padding,
+    }))}
 />
 
 <style>
