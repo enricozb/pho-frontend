@@ -34,7 +34,12 @@ export async function computeRows(files: Promise<FileMetadata[]>) {
     width: 0,
   };
 
-  for (const  metadata of (await files)) {
+  const fileMetadatas = await files;
+  fileMetadatas.sort((a, b) =>
+    a.time < b.time ? -1 : a.time > b.time ? 1 : 0
+  );
+
+  for (const metadata of fileMetadatas) {
     const cw = contributingWidth(metadata.dimensions);
 
     if (shouldPush(cw, row.width)) {
