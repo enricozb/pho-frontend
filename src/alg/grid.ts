@@ -45,7 +45,7 @@ export function computeRows(container: HTMLDivElement, files: FileMetadata[]) {
     }
   }
 
-  if (row.files) {
+  if (row.files.length > 0) {
     rows.push({ files: row.files, width: Math.min(ROW_MAX_WIDTH, row.width) });
   }
 
