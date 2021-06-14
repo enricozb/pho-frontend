@@ -2,7 +2,7 @@
   import MenuButton from './MenuButton.svelte';
   import UploadButton from './UploadButton.svelte';
 
-  export let sidebar_active;
+  let sidebar_active;
 </script>
 
 <div>

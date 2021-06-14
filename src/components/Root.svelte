@@ -1,32 +1,28 @@
 <script lang="ts">
-  import PhotoGrid from './photogrid/PhotoGrid.svelte';
-  import Sidebar from './sidebar/Sidebar.svelte';
-  import Topbar from './topbar/Topbar.svelte';
-
-  let sidebar_active = false;
+  import PhotoGrid from "./photogrid/PhotoGrid.svelte";
+  import Topbar from "./topbar/Topbar.svelte";
 </script>
 
-<div id="all">
-  <Topbar bind:sidebar_active/>
-  <div id="main">
-    {#if sidebar_active}
-      <Sidebar/>
-    {/if}
-    <PhotoGrid/>
+<main>
+  <Topbar />
+  <div>
+    <PhotoGrid />
   </div>
-</div>
+</main>
 
 <style>
   :global(body) {
     padding: 0px;
   }
 
-  #main {
-    height: calc(100% - 50px);
-  }
-
-  #all {
+  main {
     height: 100%;
     width: 100%;
+  }
+
+  div {
+    height: calc(100% - 50px);
+    width: calc(100% - 50px);
+    margin: 25px;
   }
 </style>

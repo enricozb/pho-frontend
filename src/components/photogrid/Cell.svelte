@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { FileMetadata } from "../../types/api";
   import { cursor } from "../../stores/cursor";
-  import { ROW_MAX_WIDTH } from "../../const/const";
 
   export let height: number;
   export let file: FileMetadata;
@@ -21,7 +20,7 @@
   src={`http://localhost:4000${file.endpoints.data}`}
   style={`height: ${height - padding}px; width: ${width - padding}px;`}
   on:click={() =>
-    console.log(file.id, file.dimensions.width, file.dimensions.height)}
+    console.log(file.id, file.time)}
   on:mouseover={() =>
     cursor.update((_) => ({
       x: cell.offsetLeft + 0.01 * cell.width - padding / 2,

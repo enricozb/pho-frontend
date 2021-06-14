@@ -1,37 +1,38 @@
 <script lang="ts">
   import axios from "axios";
-  import { computeRows } from "../../alg/grid";
+  import type { FileMetadata } from "../../types/api";
 
   import Cursor from "./Cursor.svelte";
-  import Row from "./Row.svelte";
+  import Section from "./Section.svelte";
 
   let self: HTMLDivElement;
 
   // TODO(enricozb): make a common fetcher that adds the endpoint for us?
-  const files = axios
-    .get("http://localhost:4000/files/all")
+  const sections = axios
+    .get<{ [date: string]: FileMetadata[] }>("http://localhost:4000/files/all")
     .then((json) => json.data);
-
-  let rows = null;
-
-  $: rows = computeRows(self, files);
 </script>
 
 <Cursor />
-<div id="grid" bind:this={self}>
-  {#await rows}
-    <div>Loading...</div>
-  {:then rows}
-    {#each [...rows] as row (row)}
-      <Row files={row} />
-    {/each}
+<div bind:this={self}>
+  {#await sections}
+    Loading...
+  {:then sections}
+    {#if self}
+      {#each Object.entries(sections) as [date, files] (files)}
+        <Section parent={self} {date} {files} />
+      {/each}
+    {/if}
   {/await}
 </div>
 
 <style>
-  #grid {
+  div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+
     height: 100%;
-    width: calc(100% - 20px);
-    padding: 10px;
+    width: 100%;
   }
 </style>
