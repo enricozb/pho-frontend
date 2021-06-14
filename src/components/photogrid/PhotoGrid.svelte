@@ -4,6 +4,7 @@
 
   import Cursor from "./Cursor.svelte";
   import Section from "./Section.svelte";
+  import { cursor } from "../../stores/cursor";
 
   let self: HTMLDivElement;
 
@@ -14,7 +15,19 @@
 </script>
 
 <Cursor />
-<div bind:this={self}>
+<div
+  bind:this={self}
+  on:mouseover={() =>
+    cursor.update(
+      (c) =>
+        c && {
+          x: c.x + c.width / 2,
+          y: c.y + c.height / 2,
+          width: 0,
+          height: 0,
+        }
+    )}
+>
   {#await sections}
     Loading...
   {:then sections}
@@ -30,7 +43,9 @@
   div {
     display: flex;
     flex-wrap: wrap;
-    gap: 50px;
+
+    justify-content: left;
+    gap: 10px;
 
     height: 100%;
     width: 100%;

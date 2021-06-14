@@ -10,18 +10,17 @@
   // see: https://svelte.dev/repl/4b1c649bc75f44eb9142dadc0322eccd?version=3.6.7
   const padding = 4;
 
-  let width = file.dimensions.width / file.dimensions.height * height;
+  let width = (file.dimensions.width / file.dimensions.height) * height;
   let cell: HTMLImageElement;
 </script>
 
 <img
   bind:this={cell}
-  alt="a media cell"
+  alt={`photo taken on ${file.time}`}
   src={`http://localhost:4000${file.endpoints.data}`}
   style={`height: ${height - padding}px; width: ${width - padding}px;`}
-  on:click={() =>
-    console.log(file.id, file.time)}
-  on:mouseover={() =>
+  on:click={() => console.log(file.id, file.time)}
+  on:mouseenter|stopPropagation={() =>
     cursor.update((_) => ({
       x: cell.offsetLeft + 0.01 * cell.width - padding / 2,
       y: cell.offsetTop + 0.01 * cell.height - padding / 2,
@@ -37,6 +36,7 @@
   }
 
   img:hover {
+    cursor: pointer;
     transform: scale(0.98);
   }
 </style>

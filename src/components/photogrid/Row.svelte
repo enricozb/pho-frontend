@@ -6,7 +6,7 @@
 
   export let files: FileMetadata[];
 
-  const {width, height} = rowDims(files);
+  const { width, height } = rowDims(files);
 </script>
 
 <div style={`height: ${height}px; width: ${width}px;`}>
@@ -16,7 +16,4 @@
 </div>
 
 <style>
-  div {
-    display: inline;
-  }
 </style>
