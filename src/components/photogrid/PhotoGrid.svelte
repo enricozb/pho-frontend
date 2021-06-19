@@ -4,7 +4,6 @@
 
   import Cursor from "./Cursor.svelte";
   import Section from "./Section.svelte";
-  import { cursor } from "../../stores/cursor";
 
   let self: HTMLDivElement;
 

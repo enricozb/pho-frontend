@@ -28,12 +28,10 @@
   });
 </script>
 
-<div
-  on:mouseover|stopPropagation={() => cursor.set_div(self, 20)}
-  bind:this={self}
-  style={`width: ${width}px`}
->
-  <h1>{dateStr}</h1>
+<div bind:this={self} style={`width: ${width}px`}>
+  <h1 on:mouseenter|stopPropagation={() => cursor.set_div(self, 20)}>
+    {dateStr}
+  </h1>
   {#each rows as files (files)}
     <Row {files} />
   {/each}
