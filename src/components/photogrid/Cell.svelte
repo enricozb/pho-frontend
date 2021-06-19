@@ -17,7 +17,7 @@
 <img
   bind:this={cell}
   alt={`photo taken on ${file.time}`}
-  src={`http://localhost:4000${file.endpoints.data}`}
+  src={`http://localhost:4000${file.endpoints.thumb}`}
   style={`height: ${height - padding}px; width: ${width - padding}px;`}
   on:click={() => console.log(file.id, file.time)}
   on:mouseenter|stopPropagation={() =>
