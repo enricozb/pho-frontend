@@ -1,12 +1,14 @@
 <script lang="ts">
   import type { FileMetadata } from "../../types/api";
   import { computeRows } from "../../alg/grid";
-  import { cursor } from "../../stores/cursor";
+  import { cursor, sections } from "../../stores";
   import { formatDate } from "../../utils/date";
+  import { onMount } from "svelte";
 
   import Row from "./Row.svelte";
 
   export let parent: HTMLDivElement;
+  export let index: number;
   export let date: string;
   export let files: FileMetadata[];
 
@@ -21,18 +23,16 @@
     width = Math.max(width, rowWidth);
   });
 
-  function handleMouseover() {
-
-    cursor.update((_) => ({
-      x: self.offsetLeft - 10,
-      y: self.offsetTop - 10,
-      width: self.offsetWidth + 20,
-      height: self.offsetHeight + 20,
-    }));
-  }
+  onMount(() => {
+    $sections[index] = self;
+  });
 </script>
 
-<div on:mouseover|stopPropagation={handleMouseover} bind:this={self} style={`width: ${width}px`}>
+<div
+  on:mouseover|stopPropagation={() => cursor.set_div(self, 20)}
+  bind:this={self}
+  style={`width: ${width}px`}
+>
   <h1>{dateStr}</h1>
   {#each rows as files (files)}
     <Row {files} />

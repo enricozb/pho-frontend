@@ -15,25 +15,13 @@
 </script>
 
 <Cursor />
-<div
-  bind:this={self}
-  on:mouseover={() =>
-    cursor.update(
-      (c) =>
-        c && {
-          x: c.x + c.width / 2,
-          y: c.y + c.height / 2,
-          width: 0,
-          height: 0,
-        }
-    )}
->
+<div bind:this={self}>
   {#await sections}
     Loading...
   {:then sections}
     {#if self}
-      {#each Object.entries(sections) as [date, files] (files)}
-        <Section parent={self} {date} {files} />
+      {#each Object.entries(sections) as [date, files], i (date)}
+        <Section parent={self} index={i} {date} {files} />
       {/each}
     {/if}
   {/await}

@@ -11,22 +11,16 @@
   const padding = 4;
 
   let width = (file.dimensions.width / file.dimensions.height) * height;
-  let cell: HTMLImageElement;
+  let self: HTMLImageElement;
 </script>
 
 <img
-  bind:this={cell}
+  bind:this={self}
   alt={`photo taken on ${file.time}`}
   src={`http://localhost:4000${file.endpoints.thumb}`}
   style={`height: ${height - padding}px; width: ${width - padding}px;`}
-  on:click={() => console.log(file.id, file.time)}
-  on:mouseenter|stopPropagation={() =>
-    cursor.update((_) => ({
-      x: cell.offsetLeft + 0.01 * cell.width - padding / 2,
-      y: cell.offsetTop + 0.01 * cell.height - padding / 2,
-      width: 0.98 * (cell.width + padding) + padding,
-      height: 0.98 * (cell.height + padding) + padding,
-    }))}
+  on:click={() => console.log(self.getBoundingClientRect().width)}
+  on:mouseenter|stopPropagation={() => cursor.set_div(self, 4)}
 />
 
 <style>
@@ -37,6 +31,6 @@
 
   img:hover {
     cursor: pointer;
-    transform: scale(0.98);
+    transform: scale(0.97);
   }
 </style>
