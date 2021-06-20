@@ -3,7 +3,6 @@
   import { computeRows } from "../../alg/grid";
   import { cursor, sections } from "../../stores";
   import { formatDate } from "../../utils/date";
-  import { onMount } from "svelte";
 
   import Row from "./Row.svelte";
 
@@ -11,8 +10,6 @@
   export let index: number;
   export let date: string;
   export let files: FileMetadata[];
-
-  let self: HTMLDivElement;
 
   const dateStr = formatDate(date);
   const rows = [];
@@ -23,13 +20,16 @@
     width = Math.max(width, rowWidth);
   });
 
-  onMount(() => {
-    $sections[index] = self;
-  });
+  function mouseenter(e: Event) {
+    cursor.set_div(
+      (e.target as HTMLHeadingElement).parentNode as HTMLDivElement,
+      20
+    );
+  }
 </script>
 
-<div bind:this={self} style={`width: ${width}px`}>
-  <h1 on:mouseenter|stopPropagation={() => cursor.set_div(self, 20)}>
+<div use:sections.register={index} style={`width: ${width}px`}>
+  <h1 on:mouseenter|stopPropagation={mouseenter}>
     {dateStr}
   </h1>
   {#each rows as files (files)}

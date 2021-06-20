@@ -20,8 +20,6 @@
 <style>
   div {
     transform: translateX(-50%) translateY(-50%);
-    transition: all 0.2s;
-    transition-timing-function: ease;
     position: absolute;
     border-radius: 3px;
   }

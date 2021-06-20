@@ -11,6 +11,10 @@
 </main>
 
 <style>
+  :global(*) {
+    transition: all 0.2s ease;
+  }
+
   :global(body) {
     padding: 0px;
   }

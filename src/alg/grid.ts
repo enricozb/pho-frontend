@@ -19,6 +19,7 @@ export function computeRows(container: HTMLDivElement, files: FileMetadata[]) {
     width: number;
   };
 
+  // TODO(enricozb): maybe don't make this thing a "constant"
   updateConstants(container);
 
   const rows: RowData[] = [];

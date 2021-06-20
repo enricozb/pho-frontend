@@ -1,7 +1,11 @@
-import { writable } from "svelte/store";
+// TODO(enricozb): consider changing this to an action instead of a store
+//
+class Sections {
+  sections: { [section: number]: HTMLDivElement } = {};
 
-export interface Sections {
-  [section: number]: HTMLDivElement;
+  register(section: HTMLDivElement, index: number) {
+    this.sections[index] = section;
+  }
 }
 
-export const sections = writable({} as Sections);
+export const sections = new Sections();

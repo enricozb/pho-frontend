@@ -10,13 +10,15 @@ class Cursor {
   data: CursorData;
 
   constructor() {
-    this.data = {x: 0, y: 0, width: 0, height: 0};
+    this.data = { x: 0, y: 0, width: 0, height: 0 };
     this.subscribers = new Set();
   }
 
   subscribe(sub: (value: CursorData) => void): () => void {
     sub(this.data);
     this.subscribers.add(sub);
+
+    console.log("SUBBED", this.subscribers.size)
 
     return () => {
       this.subscribers.delete(sub);
@@ -34,11 +36,12 @@ class Cursor {
   set_div(div: HTMLDivElement, padding: number) {
     const halfpad = padding / 2;
 
+    const rect = div.getBoundingClientRect();
     this.set({
-      x: div.offsetLeft - halfpad,
-      y: div.offsetTop - halfpad,
-      width: div.offsetWidth + padding,
-      height: div.offsetHeight + padding,
+      x: rect.x + window.scrollX - halfpad,
+      y: rect.y + window.scrollY - halfpad,
+      width: rect.width + padding,
+      height: rect.height + padding,
     });
 
     setTimeout(() => {
