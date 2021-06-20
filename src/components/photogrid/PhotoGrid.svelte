@@ -1,11 +1,12 @@
 <script lang="ts">
   import axios from "axios";
   import type { FileMetadata } from "../../types/api";
+  import { formatDate } from "../../utils/date";
 
   import Cursor from "./Cursor.svelte";
   import Section from "./Section.svelte";
 
-  let self: HTMLDivElement;
+  let clientWidth: number;
 
   // TODO(enricozb): make a common fetcher that adds the endpoint for us?
   const sections = axios
@@ -14,15 +15,13 @@
 </script>
 
 <Cursor />
-<div bind:this={self}>
+<div bind:clientWidth>
   {#await sections}
     Loading...
   {:then sections}
-    {#if self}
-      {#each Object.entries(sections) as [date, files], i (date)}
-        <Section parent={self} index={i} {date} {files} />
-      {/each}
-    {/if}
+    {#each Object.entries(sections) as [date, files], index (date)}
+      <Section {index} {files} maxWidth={clientWidth} date={formatDate(date)} />
+    {/each}
   {/await}
 </div>
 

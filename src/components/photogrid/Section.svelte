@@ -2,23 +2,13 @@
   import type { FileMetadata } from "../../types/api";
   import { computeRows } from "../../alg/grid";
   import { cursor, sections } from "../../stores";
-  import { formatDate } from "../../utils/date";
 
   import Row from "./Row.svelte";
 
-  export let parent: HTMLDivElement;
-  export let index: number;
   export let date: string;
   export let files: FileMetadata[];
-
-  const dateStr = formatDate(date);
-  const rows = [];
-  let width = 0;
-
-  computeRows(parent, files).forEach(({ files, width: rowWidth }) => {
-    rows.push(files);
-    width = Math.max(width, rowWidth);
-  });
+  export let index: number;
+  export let maxWidth: number;
 
   function mouseenter(e: Event) {
     cursor.set_div(
@@ -28,17 +18,18 @@
   }
 </script>
 
-<div use:sections.register={index} style={`width: ${width}px`}>
+<div use:sections.register={index}>
   <h1 on:mouseenter|stopPropagation={mouseenter}>
-    {dateStr}
+    {date}
   </h1>
-  {#each rows as files (files)}
-    <Row {files} />
+  {#each computeRows(maxWidth, files) as { height, width, files } (files)}
+    <Row {height} {width} {files} />
   {/each}
 </div>
 
 <style>
   div {
+    max-width: 100%;
     cursor: pointer;
     margin-top: 10px;
   }

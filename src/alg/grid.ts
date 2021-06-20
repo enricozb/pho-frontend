@@ -1,32 +1,19 @@
 import type { FileMetadata } from "../types/api";
-import { ROW_MAX_HEIGHT, ROW_MAX_WIDTH, updateConstants } from "../const/const";
+import { ROW_MAX_HEIGHT } from "../const/const";
 
-export function rowDims(files: FileMetadata[]) {
-  let width = 0;
-  for (const file of files) {
-    width += contributingWidth(file.dimensions);
-  }
-
-  return {
-    width: Math.min(ROW_MAX_WIDTH, width),
-    height: Math.min((ROW_MAX_HEIGHT * ROW_MAX_WIDTH) / width, ROW_MAX_HEIGHT),
-  };
-}
-
-export function computeRows(container: HTMLDivElement, files: FileMetadata[]) {
+export function computeRows(maxWidth: number, files: FileMetadata[]) {
   type RowData = {
     files: FileMetadata[];
     width: number;
+    height: number;
   };
-
-  // TODO(enricozb): maybe don't make this thing a "constant"
-  updateConstants(container);
 
   const rows: RowData[] = [];
 
   let row: RowData = {
     files: [],
     width: 0,
+    height: 0,
   };
 
   files.sort((a, b) => (a.time < b.time ? -1 : a.time > b.time ? 1 : 0));
@@ -37,17 +24,33 @@ export function computeRows(container: HTMLDivElement, files: FileMetadata[]) {
     row.width += cw;
     row.files.push(metadata);
 
-    if (ROW_MAX_WIDTH < row.width) {
-      rows.push({ files: row.files, width: ROW_MAX_WIDTH });
+    if (maxWidth < row.width) {
+      rows.push({
+        files: row.files,
+        width: Math.min(maxWidth, row.width),
+        height: Math.min(
+          (ROW_MAX_HEIGHT * maxWidth) / row.width,
+          ROW_MAX_HEIGHT
+        ),
+      });
+
       row = {
         files: [],
         width: 0,
+        height: 0,
       };
     }
   }
 
   if (row.files.length > 0) {
-    rows.push({ files: row.files, width: Math.min(ROW_MAX_WIDTH, row.width) });
+    rows.push({
+      files: row.files,
+      width: Math.min(maxWidth, row.width),
+      height: Math.min(
+        (ROW_MAX_HEIGHT * maxWidth) / row.width,
+        ROW_MAX_HEIGHT
+      ),
+    });
   }
 
   return rows;

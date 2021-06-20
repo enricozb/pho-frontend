@@ -1,12 +1,11 @@
 <script lang="ts">
   import type { FileMetadata } from "../../types/api";
-  import { rowDims } from "../../alg/grid";
 
   import Cell from "./Cell.svelte";
 
+  export let width: number;
+  export let height: number;
   export let files: FileMetadata[];
-
-  const { width, height } = rowDims(files);
 </script>
 
 <div style={`height: ${height}px; width: ${width}px;`}>
