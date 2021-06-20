@@ -11,17 +11,19 @@
   // see: https://svelte.dev/repl/4b1c649bc75f44eb9142dadc0322eccd?version=3.6.7
   const padding = 4;
 
-  let self: HTMLImageElement;
   let width = (file.dimensions.width / file.dimensions.height) * height;
   let selected = false;
+
+  function onmouseenter(e: Event) {
+    cursor.hover(e.target as HTMLElement, 4);
+  }
 </script>
 
 <div
   style={`height: ${height}px; width: ${width}px;`}
-  on:mouseenter|stopPropagation={() => cursor.set_div(self, 4)}
+  on:mouseenter|self={onmouseenter}
 >
   <img
-    bind:this={self}
     class:selected
     alt={`photo taken on ${file.time}`}
     src={`http://localhost:4000${file.endpoints.thumb}`}

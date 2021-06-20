@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { FileMetadata } from "../../types/api";
-  import { computeRows } from "../../alg/grid";
+  import { computeLayout } from "../../alg/grid";
   import { cursor, sections } from "../../stores";
 
   import Row from "./Row.svelte";
@@ -11,18 +11,18 @@
   export let maxWidth: number;
 
   function mouseenter(e: Event) {
-    cursor.set_div(
-      (e.target as HTMLHeadingElement).parentNode as HTMLDivElement,
+    cursor.hover(
+      (e.target as HTMLHeadingElement).parentNode as HTMLElement,
       20
     );
   }
 </script>
 
 <div use:sections.register={index}>
-  <h1 on:mouseenter|stopPropagation={mouseenter}>
+  <h1 on:mouseenter|self={mouseenter}>
     {date}
   </h1>
-  {#each computeRows(maxWidth, files) as { height, width, files } (files)}
+  {#each computeLayout(maxWidth, files) as { height, width, files } (files)}
     <Row {height} {width} {files} />
   {/each}
 </div>

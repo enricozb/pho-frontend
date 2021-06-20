@@ -18,7 +18,7 @@ class Cursor {
     sub(this.data);
     this.subscribers.add(sub);
 
-    console.log("SUBBED", this.subscribers.size)
+    console.log("SUBBED", this.subscribers.size);
 
     return () => {
       this.subscribers.delete(sub);
@@ -33,10 +33,10 @@ class Cursor {
     }
   }
 
-  set_div(div: HTMLDivElement, padding: number) {
+  hover(el: HTMLElement, padding: number) {
     const halfpad = padding / 2;
 
-    const rect = div.getBoundingClientRect();
+    const rect = el.getBoundingClientRect();
     this.set({
       x: rect.x + window.scrollX - halfpad,
       y: rect.y + window.scrollY - halfpad,
@@ -45,7 +45,7 @@ class Cursor {
     });
 
     setTimeout(() => {
-      const rect = div.getBoundingClientRect();
+      const rect = el.getBoundingClientRect();
       this.set({
         x: rect.x + window.scrollX - halfpad,
         y: rect.y + window.scrollY - halfpad,
