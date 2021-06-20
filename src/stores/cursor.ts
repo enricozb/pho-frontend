@@ -18,8 +18,6 @@ class Cursor {
     sub(this.data);
     this.subscribers.add(sub);
 
-    console.log("SUBBED", this.subscribers.size);
-
     return () => {
       this.subscribers.delete(sub);
     };
