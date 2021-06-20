@@ -1,5 +1,4 @@
 // TODO(enricozb): consider changing this to an action instead of a store
-//
 class Sections {
   sections: { [section: number]: HTMLDivElement } = {};
 

@@ -11,8 +11,9 @@
   // see: https://svelte.dev/repl/4b1c649bc75f44eb9142dadc0322eccd?version=3.6.7
   const padding = 4;
 
-  let width = (file.dimensions.width / file.dimensions.height) * height;
   let selected = false;
+
+  $: width = (file.dimensions.width / file.dimensions.height) * height;
 
   function onmouseenter(e: Event) {
     cursor.hover(e.target as HTMLElement, 4);
