@@ -31,9 +31,8 @@ class Cursor {
     }
   }
 
-  hover(el: HTMLElement, padding: number) {
+  _hover(el: HTMLElement, padding: number) {
     const halfpad = padding / 2;
-
     const rect = el.getBoundingClientRect();
     this.set({
       x: rect.x + window.scrollX - halfpad,
@@ -41,16 +40,11 @@ class Cursor {
       width: rect.width + padding,
       height: rect.height + padding,
     });
+  }
 
-    setTimeout(() => {
-      const rect = el.getBoundingClientRect();
-      this.set({
-        x: rect.x + window.scrollX - halfpad,
-        y: rect.y + window.scrollY - halfpad,
-        width: rect.width + padding,
-        height: rect.height + padding,
-      });
-    }, 100);
+  hover(el: HTMLElement, padding: number) {
+    this._hover(el, padding);
+    setTimeout(() => this._hover(el, padding), 100);
   }
 }
 

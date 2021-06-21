@@ -15,7 +15,7 @@
   $: selected = $selections.has(file.id);
 
   function onmouseenter(e: Event) {
-    cursor.hover(e.target as HTMLElement, 4);
+    cursor.hover((e.target as HTMLElement).childNodes[0] as HTMLElement, padding);
   }
 </script>
 
@@ -28,11 +28,7 @@
     alt={`photo taken on ${file.time}`}
     src={`http://localhost:4000${file.endpoints.thumb}`}
     style={`height: ${height - padding}px; width: ${width - padding}px;`}
-    on:click={(e) => {
-      if (e.shiftKey) {
-        selections.toggle(file.id);
-      }
-    }}
+    on:click={(e) => e.shiftKey && selections.toggle(file.id)}
   />
   <Checkmark {selected} />
 </div>

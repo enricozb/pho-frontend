@@ -25,7 +25,7 @@
 
   div {
     width: calc(100% - 50px);
-    margin: 25px;
+    margin: 0px 25px 25px 25px;
     padding-bottom: 25px;
   }
 </style>

@@ -39,5 +39,7 @@
 
     height: 100%;
     width: 100%;
+
+    padding-top: 75px;
   }
 </style>

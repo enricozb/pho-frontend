@@ -22,7 +22,10 @@
 </script>
 
 <div>
-  <h1 on:mouseenter|self={mouseenter} on:click={() => selections.sync(fileIDs)}>
+  <h1
+    on:mouseenter|self={mouseenter}
+    on:click={(e) => e.shiftKey && selections.sync(fileIDs)}
+  >
     {date}
   </h1>
   {#each rowData as { height, width, files } (files)}
