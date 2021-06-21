@@ -20,13 +20,12 @@
   }
 
   main {
-    height: 100%;
     width: 100%;
   }
 
   div {
-    height: calc(100% - 50px);
     width: calc(100% - 50px);
     margin: 25px;
+    padding-bottom: 25px;
   }
 </style>

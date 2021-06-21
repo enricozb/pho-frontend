@@ -1,14 +1,11 @@
 <script lang="ts">
-  import type { FileMetadata } from "../../types/api";
-  import { computeLayout } from "../../alg/grid";
-  import { cursor, sections } from "../../stores";
+  import type { RowData } from "../../alg/grid";
+  import { cursor } from "../../stores";
 
   import Row from "./Row.svelte";
 
   export let date: string;
-  export let files: FileMetadata[];
-  export let index: number;
-  export let maxWidth: number;
+  export let rowData: RowData[];
 
   function mouseenter(e: Event) {
     cursor.hover(
@@ -18,11 +15,11 @@
   }
 </script>
 
-<div use:sections.register={index}>
+<div>
   <h1 on:mouseenter|self={mouseenter}>
     {date}
   </h1>
-  {#each computeLayout(maxWidth, files) as { height, width, files } (files)}
+  {#each rowData as { height, width, files } (files)}
     <Row {height} {width} {files} />
   {/each}
 </div>
@@ -30,8 +27,9 @@
 <style>
   div {
     max-width: 100%;
-    cursor: pointer;
     margin-top: 10px;
+    cursor: pointer;
+    user-select: none;
   }
 
   h1 {

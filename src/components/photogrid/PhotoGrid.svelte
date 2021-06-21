@@ -1,6 +1,7 @@
 <script lang="ts">
   import axios from "axios";
   import type { FileMetadata } from "../../types/api";
+  import { computeLayout } from "../../alg/grid";
   import { formatDate } from "../../utils/date";
 
   import Cursor from "./Cursor.svelte";
@@ -9,18 +10,21 @@
   let clientWidth: number;
 
   // TODO(enricozb): make a common fetcher that adds the endpoint for us?
-  const sections = axios
+  const sectionData = axios
     .get<{ [date: string]: FileMetadata[] }>("http://localhost:4000/files/all")
     .then((json) => json.data);
 </script>
 
 <Cursor />
 <div bind:clientWidth>
-  {#await sections}
+  {#await sectionData}
     Loading...
-  {:then sections}
-    {#each Object.entries(sections) as [date, files], index (date)}
-      <Section {index} {files} maxWidth={clientWidth} date={formatDate(date)} />
+  {:then sectionData}
+    {#each Object.entries(sectionData) as [date, files] (date)}
+      <Section
+        rowData={computeLayout(clientWidth, files)}
+        date={formatDate(date)}
+      />
     {/each}
   {/await}
 </div>
