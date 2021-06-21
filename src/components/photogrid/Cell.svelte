@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { FileMetadata } from "../../types/api";
-  import { cursor, selections } from "../../stores";
+  import { cursor, focus, selections } from "../../stores";
   import Checkmark from "./Checkmark.svelte";
 
   export let height: number;
@@ -15,7 +15,18 @@
   $: selected = $selections.has(file.id);
 
   function onmouseenter(e: Event) {
-    cursor.hover((e.target as HTMLElement).childNodes[0] as HTMLElement, padding);
+    cursor.hover(
+      (e.target as HTMLElement).childNodes[0] as HTMLElement,
+      padding
+    );
+  }
+
+  function onclick(e: MouseEvent) {
+    if (e.shiftKey) {
+      selections.toggle(file.id);
+    } else {
+      focus.focus(file, (e.target as HTMLImageElement).getBoundingClientRect());
+    }
   }
 </script>
 
@@ -28,7 +39,7 @@
     alt={`photo taken on ${file.time}`}
     src={`http://localhost:4000${file.endpoints.thumb}`}
     style={`height: ${height - padding}px; width: ${width - padding}px;`}
-    on:click={(e) => e.shiftKey && selections.toggle(file.id)}
+    on:click={onclick}
   />
   <Checkmark {selected} />
 </div>

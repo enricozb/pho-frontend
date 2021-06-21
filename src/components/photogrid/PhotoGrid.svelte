@@ -3,8 +3,10 @@
   import type { FileMetadata } from "../../types/api";
   import { computeLayout } from "../../alg/grid";
   import { formatDate } from "../../utils/date";
+  import { focus } from "../../stores";
 
   import Cursor from "./Cursor.svelte";
+  import Focus from "./Focus.svelte";
   import Section from "./Section.svelte";
 
   let clientWidth: number;
@@ -27,6 +29,9 @@
       />
     {/each}
   {/await}
+  {#if $focus}
+    <Focus file={$focus.file} rect={$focus.rect} />
+  {/if}
 </div>
 
 <style>
