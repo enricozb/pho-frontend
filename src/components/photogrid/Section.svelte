@@ -1,11 +1,17 @@
 <script lang="ts">
   import type { RowData } from "../../alg/grid";
-  import { cursor } from "../../stores";
+  import { cursor, selections } from "../../stores";
 
   import Row from "./Row.svelte";
 
   export let date: string;
   export let rowData: RowData[];
+
+  // TODO(enricozb): maybe this (fileIDs) should be passed in?
+  //   or maybe the passed in layout is just indexes into a list of files
+
+  // all file ids in this section
+  $: fileIDs = rowData.map(({ files }) => files.map(({ id }) => id)).flat();
 
   function mouseenter(e: Event) {
     cursor.hover(
@@ -16,7 +22,7 @@
 </script>
 
 <div>
-  <h1 on:mouseenter|self={mouseenter}>
+  <h1 on:mouseenter|self={mouseenter} on:click={() => selections.sync(fileIDs)}>
     {date}
   </h1>
   {#each rowData as { height, width, files } (files)}

@@ -1,7 +1,7 @@
 import type { FileMetadata } from "../types/api";
 import { ROW_MAX_HEIGHT } from "../const/const";
 
-type RowData = {
+export type RowData = {
   files: FileMetadata[];
   width: number;
   height: number;
