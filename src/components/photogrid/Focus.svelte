@@ -7,6 +7,8 @@
 
   const { top, left, height, width } = rect;
 
+  // TODO(enricozb): try to understand how svelte transitions work
+  // TODO(enricozb): take in a cell instead of a rect so we can zoom back out even after a resize
   let src = file.endpoints.thumb;
   let zoom = false;
 
@@ -17,7 +19,7 @@
   setTimeout(() => (src = file.endpoints.data), 200);
 
   function onkeydown(e: KeyboardEvent) {
-    if (e.key == "Escape") {
+    if (e.key === "Escape") {
       zoom = false;
       setTimeout(() => focus.clear(), 200);
     }

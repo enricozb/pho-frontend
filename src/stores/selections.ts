@@ -32,6 +32,11 @@ class Selection {
     this.publish();
   }
 
+  clear() {
+    this.ids.clear();
+    this.publish();
+  }
+
   subscribe(sub: (ids: Set<string>) => void): () => void {
     sub(this.ids);
     this.subscribers.add(sub);

@@ -3,7 +3,7 @@
   import type { FileMetadata } from "../../types/api";
   import { computeLayout } from "../../alg/grid";
   import { formatDate } from "../../utils/date";
-  import { focus } from "../../stores";
+  import { focus, selections } from "../../stores";
 
   import Cursor from "./Cursor.svelte";
   import Focus from "./Focus.svelte";
@@ -16,6 +16,8 @@
     .get<{ [date: string]: FileMetadata[] }>("http://localhost:4000/files/all")
     .then((json) => json.data);
 </script>
+
+<svelte:window on:keydown={(e) => e.key === "Escape" && selections.clear()} />
 
 <Cursor />
 <div bind:clientWidth>
