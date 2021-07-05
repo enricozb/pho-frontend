@@ -8,6 +8,7 @@
   import Cursor from "./Cursor.svelte";
   import Focus from "./Focus.svelte";
   import Section from "./Section.svelte";
+  import SelectionButton from "./SelectionButton.svelte";
 
   let clientWidth: number;
 
@@ -20,6 +21,7 @@
 <svelte:window on:keydown={(e) => e.key === "Escape" && selections.clear()} />
 
 <Cursor />
+<SelectionButton />
 <div bind:clientWidth>
   {#await sectionData}
     Loading...

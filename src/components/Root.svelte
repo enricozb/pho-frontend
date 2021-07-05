@@ -17,6 +17,7 @@
 
   :global(body) {
     padding: 0px;
+    overflow-x: hidden;
   }
 
   main {
