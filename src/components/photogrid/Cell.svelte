@@ -16,7 +16,7 @@
 
   function onmouseenter(e: Event) {
     cursor.hover(
-      (e.target as HTMLElement).childNodes[0] as HTMLElement,
+      (e.target as HTMLElement) as HTMLElement,
       padding
     );
   }
@@ -50,16 +50,18 @@
     display: inline-block;
   }
 
-  div:hover > img {
+  div:hover > img:not(.selected) {
     cursor: pointer;
     transform: scale(0.97);
   }
 
   img {
+    -webkit-user-drag: none;
     padding: 2px;
   }
 
   img.selected {
+    transform: scale(0.9);
     filter: brightness(75%) saturate(140%);
   }
 </style>

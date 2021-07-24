@@ -1,9 +1,11 @@
 <script lang="ts">
+  import Modal from "./modals/Modal.svelte";
   import PhotoGrid from "./photogrid/PhotoGrid.svelte";
   import Topbar from "./topbar/Topbar.svelte";
 </script>
 
 <main>
+  <Modal />
   <Topbar />
   <div>
     <PhotoGrid />
@@ -18,6 +20,10 @@
   :global(body) {
     padding: 0px;
     overflow-x: hidden;
+  }
+
+  :global(body::-webkit-scrollbar) {
+    display: none;
   }
 
   main {
