@@ -3,7 +3,7 @@
   import type { FileMetadata } from "../../types/api";
   import { computeLayout } from "../../alg/grid";
   import { formatDate } from "../../utils/date";
-  import { focus, selections } from "../../stores";
+  import { focus, modal, selections } from "../../stores";
 
   import Cursor from "./Cursor.svelte";
   import Focus from "./Focus.svelte";
@@ -13,20 +13,23 @@
   let clientWidth: number;
 
   // TODO(enricozb): make a common fetcher that adds the endpoint for us?
-  const sectionData = axios
+  const filesByDate = axios
     .get<{ [date: string]: FileMetadata[] }>("http://localhost:4000/files/all")
     .then((json) => json.data);
 </script>
 
-<svelte:window on:keydown={(e) => e.key === "Escape" && selections.clear()} />
+<svelte:window
+  on:keydown={(e) =>
+    e.key === "Escape" && !modal.recentlyClosed() && selections.clear()}
+/>
 
 <Cursor />
 <SelectionButton />
 <div bind:clientWidth>
-  {#await sectionData}
+  {#await filesByDate}
     Loading...
-  {:then sectionData}
-    {#each Object.entries(sectionData) as [date, files] (date)}
+  {:then filesByDate}
+    {#each Object.entries(filesByDate) as [date, files] (date)}
       <Section
         rowData={computeLayout(clientWidth, files)}
         date={formatDate(date)}

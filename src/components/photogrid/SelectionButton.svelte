@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { selections } from "../../stores";
+  import { modal, selections } from "../../stores";
+  import { AddToAlbum } from "../modals";
 </script>
 
-<div class:visible={$selections.size > 0}>
+<div class:visible={$selections.size > 0} on:click={() => modal.show(AddToAlbum)}>
   <span class="badge">{$selections.size}</span>
   <span class="tooltip">Move to album</span>
   <svg
