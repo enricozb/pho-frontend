@@ -3,7 +3,7 @@
   import { AddToAlbum } from "../modals";
 </script>
 
-<div class:visible={$selections.size > 0} on:click={() => modal.show(AddToAlbum)}>
+<div class:visible={$selections.size > 0} on:click={() => modal.show("Add to Album", AddToAlbum)}>
   <span class="badge">{$selections.size}</span>
   <span class="tooltip">Move to album</span>
   <svg

@@ -56,7 +56,6 @@
   }
 
   img {
-    -webkit-user-drag: none;
     padding: 2px;
   }
 

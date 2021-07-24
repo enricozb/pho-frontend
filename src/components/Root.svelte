@@ -14,6 +14,7 @@
 
 <style>
   :global(*) {
+    -webkit-user-drag: none;
     transition: all 0.2s ease;
   }
 

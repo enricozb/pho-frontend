@@ -1,32 +1,37 @@
 import type { SvelteComponent } from "svelte";
 
-class Modal {
-  component: typeof SvelteComponent;
-  #recentlyClosed = false;
+type ModalData = {
+  component?: typeof SvelteComponent;
+  title?: string;
+};
 
+class Modal {
+  data: ModalData = {};
+
+  #recentlyClosed = false;
   #scrollY: number;
   #prevBodyPosition: string;
   #prevBodyOverflow: string;
 
-  subscribers: Set<(component: typeof SvelteComponent) => void>;
+  subscribers: Set<(data: ModalData) => void>;
 
   constructor() {
     this.subscribers = new Set();
   }
 
-  show(component: typeof SvelteComponent) {
-    this.component = component;
+  show(title: string, component: typeof SvelteComponent) {
+    this.data = { title, component };
     this.publish();
 
     this.#disableScroll();
   }
 
   close() {
-    if (!this.component) {
+    if (!this.data.component) {
       return;
     }
 
-    this.component = undefined;
+    this.data.component = undefined;
     this.#recentlyClosed = true;
     this.publish();
 
@@ -39,8 +44,8 @@ class Modal {
     return val;
   }
 
-  subscribe(sub: (component: typeof SvelteComponent) => void): () => void {
-    sub(this.component);
+  subscribe(sub: (data: ModalData) => void): () => void {
+    sub(this.data);
     this.subscribers.add(sub);
 
     return () => {
@@ -50,7 +55,7 @@ class Modal {
 
   publish() {
     for (const sub of this.subscribers) {
-      sub(this.component);
+      sub(this.data);
     }
   }
 
