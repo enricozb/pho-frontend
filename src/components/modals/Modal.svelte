@@ -20,6 +20,9 @@
         /></svg
       >
     </div>
+    <div class="content">
+      <svelte:component this={$modal.component} />
+    </div>
   </div>
 </div>
 
@@ -49,7 +52,7 @@
   .modal {
     position: absolute;
 
-    height: calc(min(500px, 80%));
+    max-height: calc(min(500px, 80%));
     width: calc(min(300px, 80%));
 
     top: calc(50vh - min(500px, 80%) / 2);
