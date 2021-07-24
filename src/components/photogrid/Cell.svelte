@@ -15,10 +15,7 @@
   $: selected = $selections.has(file.id);
 
   function onmouseenter(e: Event) {
-    cursor.hover(
-      (e.target as HTMLElement) as HTMLElement,
-      padding
-    );
+    cursor.hover(e.target as HTMLElement as HTMLElement, padding);
   }
 
   function onclick(e: MouseEvent) {
@@ -38,7 +35,11 @@
     class:selected
     alt={`photo taken on ${file.time}`}
     src={`http://localhost:4000${file.endpoints.thumb}`}
-    style={`height: ${height - padding}px; width: ${width - padding}px;`}
+    style={`
+      height: ${height - padding - (selected ? 20 : 0)}px;
+      width: ${width - padding - (selected ? 20 : 0)}px;
+      margin: ${selected ? 10 : 0}px;
+    `}
     on:click={onclick}
   />
   <Checkmark {selected} />
@@ -56,11 +57,7 @@
   }
 
   img {
+    object-fit: cover;
     padding: 2px;
-  }
-
-  img.selected {
-    transform: scale(0.9);
-    filter: brightness(75%) saturate(140%);
   }
 </style>
