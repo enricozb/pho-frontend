@@ -73,7 +73,7 @@ class Modal {
     document.body.style.position = this.#prevBodyPosition || "";
     document.body.style.top = "";
     document.body.style.overflow = this.#prevBodyOverflow || "";
-    window.scrollTo(0, scrollY);
+    window.scrollTo(0, this.#scrollY);
   }
 }
 
