@@ -3,6 +3,12 @@ import axios from "axios";
 import type { Album, FileMetadata } from "../types/api";
 
 export namespace api {
+  export async function renameAlbum(albumId: string, name: string) {
+    return await axios
+      .post(`http://localhost:4000/albums/${albumId}`, { name })
+      .then((json) => json.data);
+  }
+
   export async function allMedia() {
     return await axios
       .get<{ [date: string]: FileMetadata[] }>(
