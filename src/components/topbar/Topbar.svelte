@@ -8,7 +8,7 @@
   let sidebarActive;
 </script>
 
-<Sidebar active={sidebarActive} />
+<Sidebar bind:active={sidebarActive} />
 <div class="outer">
   <div class="inner">
     <MenuButton bind:active={sidebarActive} />

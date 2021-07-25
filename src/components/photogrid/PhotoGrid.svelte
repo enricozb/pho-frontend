@@ -13,7 +13,7 @@
 
   let clientWidth: number;
 
-  export let files: { [date: string]: FileMetadata[] };
+  export let files: { [date: string]: FileMetadata[] } | undefined = undefined;
   // TODO(enricozb): make a common fetcher that adds the endpoint for us?
   $: filesByDate = files ? new Promise((r) => r(files)) : api.allMedia();
 </script>
