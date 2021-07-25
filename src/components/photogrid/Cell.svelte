@@ -53,7 +53,7 @@
     object-fit: cover;
     height: calc(var(--height) - var(--padding) - var(--shrink));
     width: calc(var(--width) - var(--padding) - var(--shrink));
-    padding: var(--padding);
+    padding: calc(var(--padding) / 2);
     margin: calc(var(--shrink) / 2);
   }
 </style>
