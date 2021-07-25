@@ -1,17 +1,19 @@
 <script lang="ts">
+  import { Route, Router } from "svelte-navigator";
+
   import Modal from "./modals/Modal.svelte";
-  import PhotoGrid from "./photogrid/PhotoGrid.svelte";
-  import Topbar from "./topbar/Topbar.svelte";
+  import AllMedia from "./pages/AllMedia.svelte";
+  import AlbumMedia from "./pages/AlbumMedia.svelte";
 
   import "../css/vars.css";
 </script>
 
 <main>
   <Modal />
-  <Topbar title="All Photos" />
-  <div>
-    <PhotoGrid />
-  </div>
+  <Router>
+    <Route path="/" component={AllMedia} />
+    <Route path="album/:albumId" component={AlbumMedia} />
+  </Router>
 </main>
 
 <style>
@@ -31,11 +33,5 @@
 
   main {
     width: 100%;
-  }
-
-  div {
-    width: calc(100% - 50px);
-    margin: 0px 25px 25px 25px;
-    padding-bottom: 25px;
   }
 </style>

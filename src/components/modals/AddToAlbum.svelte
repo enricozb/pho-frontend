@@ -1,5 +1,20 @@
 <script lang="ts">
+  import axios from "axios";
+  import { navigate } from "svelte-navigator";
+
+  import { modal, selections } from "../../stores";
   import Icon from "../icons/Icon.svelte";
+
+  async function newAlbum(fileIds: string[]) {
+    const { id } = await axios
+      .post<{ id: string }>("http://localhost:4000/albums", {
+        name: "Untitled",
+        files: fileIds,
+      })
+      .then((json) => json.data);
+
+    navigate(`/album/${id}`);
+  }
 </script>
 
 <div class="row">
@@ -11,7 +26,15 @@
       padding: 0 var(--space-2) 0 var(--space-2);
     `}
   />
-  <div>New Album</div>
+  <div
+    on:click={() => {
+      newAlbum([...$selections]);
+      modal.close();
+      selections.clear();
+    }}
+  >
+    New Album
+  </div>
 </div>
 
 <style>

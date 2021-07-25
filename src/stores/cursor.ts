@@ -44,7 +44,6 @@ class Cursor {
 
   hover(el: HTMLElement, padding: number) {
     this._hover(el, padding);
-    setTimeout(() => this._hover(el, padding), 100);
   }
 }
 
