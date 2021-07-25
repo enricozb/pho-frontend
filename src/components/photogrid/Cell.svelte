@@ -18,7 +18,7 @@
   `;
 
   function onmouseenter(e: Event) {
-    cursor.hover(e.target as HTMLElement as HTMLElement, padding);
+    cursor.hover(e.target as HTMLElement as HTMLElement, 10);
   }
 
   function onclick(e: MouseEvent) {
