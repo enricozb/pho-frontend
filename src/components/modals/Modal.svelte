@@ -5,7 +5,7 @@
 
 <svelte:window on:keydown={(e) => e.key === "Escape" && modal.close()} />
 
-<div class="bg" on:click={() => modal.close()} class:visible={$modal.component}>
+<div class="bg" on:click={() => modal.close()} class:visible={$modal.visible}>
   <div on:click|stopPropagation class="modal">
     <div class="top">
       <div>{$modal?.title}</div>
@@ -27,7 +27,7 @@
 
 <style>
   .bg {
-    z-index: 2;
+    z-index: 3;
 
     width: 100vw;
     height: 100vh;

@@ -1,47 +1,42 @@
 import type { SvelteComponent } from "svelte";
 
+import { escape } from "../keyboard/escape";
+
 type ModalData = {
   component?: typeof SvelteComponent;
   title?: string;
+  visible: boolean;
 };
 
 class Modal {
-  data: ModalData = {};
+  data: ModalData = { visible: false };
+  private subscribers: Set<(data: ModalData) => void> = new Set();
 
-  #recentlyClosed = false;
-  #scrollY: number;
-  #prevBodyPosition: string;
-  #prevBodyOverflow: string;
+  private onClose: () => void;
 
-  subscribers: Set<(data: ModalData) => void>;
-
-  constructor() {
-    this.subscribers = new Set();
-  }
+  private scrollY: number;
+  private prevBodyPosition: string;
+  private prevBodyOverflow: string;
 
   show(title: string, component: typeof SvelteComponent) {
-    this.data = { title, component };
+    this.data = { title, component, visible: true };
     this.publish();
 
-    this.#disableScroll();
+    this.disableScroll();
+    this.onClose = escape.push(() => (this.close(), true));
   }
 
   close() {
-    if (!this.data.component) {
+    if (!this.data.visible) {
       return;
     }
 
-    this.data.component = undefined;
-    this.#recentlyClosed = true;
+    this.onClose?.();
+    this.onClose = undefined;
+
+    this.data.visible = false;
     this.publish();
-
-    this.#enableScroll();
-  }
-
-  recentlyClosed() {
-    const val = this.#recentlyClosed;
-    this.#recentlyClosed = false;
-    return val;
+    this.enableScroll();
   }
 
   subscribe(sub: (data: ModalData) => void): () => void {
@@ -59,21 +54,21 @@ class Modal {
     }
   }
 
-  #disableScroll() {
-    this.#scrollY = window.scrollY;
-    this.#prevBodyPosition = document.body.style.position;
-    this.#prevBodyOverflow = document.body.style.overflow;
+  disableScroll() {
+    this.scrollY = window.scrollY;
+    this.prevBodyPosition = document.body.style.position;
+    this.prevBodyOverflow = document.body.style.overflow;
 
     document.body.style.position = "fixed";
-    document.body.style.top = `-${this.#scrollY}px`;
+    document.body.style.top = `-${this.scrollY}px`;
     document.body.style.overflow = "hidden";
   }
 
-  #enableScroll() {
-    document.body.style.position = this.#prevBodyPosition || "";
+  enableScroll() {
+    document.body.style.position = this.prevBodyPosition || "";
     document.body.style.top = "";
-    document.body.style.overflow = this.#prevBodyOverflow || "";
-    window.scrollTo(0, this.#scrollY);
+    document.body.style.overflow = this.prevBodyOverflow || "";
+    window.scrollTo(0, this.scrollY);
   }
 }
 

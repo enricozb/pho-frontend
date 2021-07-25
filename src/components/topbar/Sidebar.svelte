@@ -1,10 +1,27 @@
 <script lang="ts">
+  import { onDestroy } from "svelte";
+
   import { api } from "../../api";
+  import { escape } from "../../keyboard/escape";
   import AlbumRow from "../common/AlbumRow.svelte";
 
   export let active: boolean;
 
   const albums = api.getAlbums();
+
+  // register selection clearing via escape key
+  let cleanup: (() => void) | undefined;
+  $: {
+    // delete old callback, and if we're active, register a new callback
+    cleanup?.();
+    cleanup = !active
+      ? undefined
+      : escape.push(() => {
+          active = false;
+          return true;
+        }, "sidebar");
+  }
+  onDestroy(() => cleanup?.());
 </script>
 
 <div class="container" class:active>

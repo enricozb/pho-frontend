@@ -1,10 +1,13 @@
 <script lang="ts">
+  import { onDestroy } from "svelte";
+
   import type { FileMetadata } from "../../types/api";
 
   import { api } from "../../api";
   import { computeLayout } from "../../alg/grid";
+  import { escape } from "../../keyboard/escape";
+  import { focus, selections } from "../../stores";
   import { formatDate } from "../../utils/date";
-  import { focus, modal, selections } from "../../stores";
 
   import Cursor from "./Cursor.svelte";
   import Focus from "./Focus.svelte";
@@ -16,12 +19,10 @@
   export let files: { [date: string]: FileMetadata[] } | undefined = undefined;
   // TODO(enricozb): make a common fetcher that adds the endpoint for us?
   $: filesByDate = files ? new Promise((r) => r(files)) : api.allMedia();
-</script>
 
-<svelte:window
-  on:keydown={(e) =>
-    e.key === "Escape" && !modal.recentlyClosed() && selections.clear()}
-/>
+  // register selection clearing via escape key
+  onDestroy(escape.push(() => selections.clear()));
+</script>
 
 <Cursor />
 <SelectionButton />
