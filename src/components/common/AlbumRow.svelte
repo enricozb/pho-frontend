@@ -18,24 +18,28 @@
     align-items: center;
     justify-content: flex-start;
 
+    --padding: var(--space-2);
+
     gap: var(--space-2);
 
-    width: calc(100% - var(--space-3));
     height: var(--space-3);
-    line-height: var(--space-3);
+    width: calc(100% - var(--padding));
+    line-height: var(--padding);
 
-    padding: var(--space-min) 0 var(--space-min) var(--space-3);
+    padding-left: var(--padding);
 
     cursor: pointer;
+
+    transition: all 0s;
   }
 
   div.row:hover {
-    background: var(--fill-light);
+    background: var(--text-hover-bg);
   }
 
   div.image {
-    height: var(--space-3);
-    width: var(--space-3);
+    height: calc(var(--space-3) - var(--space-2) / 2);
+    width: calc(var(--space-3) - var(--space-2) / 2);
 
     background: var(--text-hover-bg);
     border-radius: var(--radius-2);

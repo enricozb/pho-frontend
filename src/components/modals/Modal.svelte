@@ -49,12 +49,16 @@
 
   .modal {
     position: absolute;
+    display: flex;
+    flex-direction: column;
 
     max-height: var(--height-card);
     width: var(--width-card);
 
     top: calc(50vh - var(--height-card) / 2);
     left: calc(50vw - var(--width-card) / 2);
+
+    overflow: hidden;
 
     margin: 0 auto;
 
@@ -74,5 +78,10 @@
 
     font-weight: var(--text-weight-bold);
     border-bottom: var(--border-thin);
+  }
+
+  .content {
+    overflow-y: auto;
+    margin-bottom: var(--space-1);
   }
 </style>

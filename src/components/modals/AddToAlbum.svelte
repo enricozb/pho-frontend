@@ -1,20 +1,12 @@
 <script lang="ts">
-  import axios from "axios";
   import { navigate } from "svelte-navigator";
 
+  import { api } from "../../api";
   import { modal, selections } from "../../stores";
   import Icon from "../icons/Icon.svelte";
+  import AlbumRow from "../common/AlbumRow.svelte";
 
-  async function newAlbum(fileIds: string[]) {
-    const { id } = await axios
-      .post<{ id: string }>("http://localhost:4000/albums", {
-        name: "Untitled",
-        files: fileIds,
-      })
-      .then((json) => json.data);
-
-    navigate(`/album/${id}`);
-  }
+  const albums = api.getAlbums();
 </script>
 
 <div class="row">
@@ -28,7 +20,7 @@
   />
   <div
     on:click={() => {
-      newAlbum([...$selections]);
+      api.newAlbum([...$selections]).then(({ id }) => navigate(`/album/${id}`));
       modal.close();
       selections.clear();
     }}
@@ -36,6 +28,13 @@
     New Album
   </div>
 </div>
+<div class="section">existing albums</div>
+
+{#await albums then albums}
+  {#each albums as { id, name } (id)}
+    <AlbumRow {id} {name} />
+  {/each}
+{/await}
 
 <style>
   div.row {
@@ -49,5 +48,13 @@
   div.row:hover {
     cursor: pointer;
     background: var(--fill-light);
+  }
+
+  div.section {
+    margin-top: var(--space-1);
+    margin-bottom: var(--space-1);
+    margin-left: var(--space-2);
+
+    font-variant: small-caps;
   }
 </style>
