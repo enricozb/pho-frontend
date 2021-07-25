@@ -1,18 +1,22 @@
 <script>
   import MenuButton from "./MenuButton.svelte";
   import UploadButton from "./UploadButton.svelte";
+
+  export let title;
 </script>
 
-<div>
-  <MenuButton />
-  <UploadButton />
+<div class="outer">
+  <div class="inner">
+    <MenuButton />
+    <span>
+      {title}
+    </span>
+    <UploadButton />
+  </div>
 </div>
 
 <style>
-  div {
-    display: flex;
-    justify-content: space-between;
-
+  div.outer {
     position: fixed;
     top: 0;
     left: 0;
@@ -24,5 +28,17 @@
 
     background-color: white;
     outline: var(--border-thin);
+
+    padding-left: var(--space-2);
+    padding-right: var(--space-2);
+  }
+
+  div.inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    height: 100%;
+    width: calc(100% - 2 * var(--space-2));
   }
 </style>

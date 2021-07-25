@@ -8,7 +8,7 @@
 
 <main>
   <Modal />
-  <Topbar />
+  <Topbar title="All Photos" />
   <div>
     <PhotoGrid />
   </div>

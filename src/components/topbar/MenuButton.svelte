@@ -16,8 +16,6 @@
 
     height: 100%;
 
-    margin: 0 var(--space-2) 0 var(--space-2);
-
     fill: var(--text-color-medium);
     cursor: pointer;
   }

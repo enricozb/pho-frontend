@@ -27,8 +27,6 @@
     display: flex;
     height: 100%;
 
-    margin: 0 var(--space-2) 0 var(--space-2);
-
     justify-content: center;
     align-items: center;
   }
