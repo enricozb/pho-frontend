@@ -5,7 +5,6 @@
   export let active: boolean;
 
   const albums = api.getAlbums();
-  albums.then((data) => console.log(data));
 </script>
 
 <div class="container" class:active>
