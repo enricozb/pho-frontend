@@ -1,13 +1,17 @@
 <script>
+  import Sidebar from "./Sidebar.svelte";
   import MenuButton from "./MenuButton.svelte";
   import UploadButton from "./UploadButton.svelte";
 
   export let title;
+
+  let sidebarActive;
 </script>
 
+<Sidebar active={sidebarActive} />
 <div class="outer">
   <div class="inner">
-    <MenuButton />
+    <MenuButton bind:active={sidebarActive} />
     <span>
       {title}
     </span>
@@ -31,6 +35,8 @@
 
     padding-left: var(--space-2);
     padding-right: var(--space-2);
+
+    user-select: none;
   }
 
   div.inner {

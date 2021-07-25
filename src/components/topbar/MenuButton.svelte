@@ -4,7 +4,7 @@
   export let active = false;
 </script>
 
-<div class:open={active} on:click={() => (active = !active)}>
+<div on:click={() => (active = !active)}>
   <Icon name="menu" />
 </div>
 
@@ -18,9 +18,5 @@
 
     fill: var(--text-color-medium);
     cursor: pointer;
-  }
-
-  div.open {
-    background-color: red;
   }
 </style>

@@ -16,3 +16,8 @@ export type FileMetadata = {
     thumb: string;
   };
 };
+
+export type Album = {
+  id: string;
+  name: string;
+};
