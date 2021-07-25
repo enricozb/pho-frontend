@@ -1,6 +1,7 @@
 <script lang="ts">
-  import ImportProgress from "./ImportProgress.svelte";
   import { daemon } from "../../stores/heartbeat";
+  import ImportProgress from "./ImportProgress.svelte";
+  import Icon from "../icons/Icon.svelte";
 
   let files: FileList;
 </script>
@@ -10,22 +11,50 @@
 {:else if files?.length > 0}
   <ImportProgress bind:files />
 {:else if $daemon.connected}
-  <label for="file-input" class="ready" />
-  <input id="file-input" type="file" multiple={true} bind:files />
+  <div class="button">
+    <label for="file-input">
+      <Icon name="upload" />
+      Upload
+    </label>
+    <input id="file-input" type="file" multiple={true} bind:files />
+  </div>
 {:else}
   <div class="loading" />
 {/if}
 
 <style>
-  div,
-  label {
-    width: 50px;
-    height: 50px;
+  div.button {
+    display: flex;
+    height: 100%;
+
+    margin: 0 var(--space-2) 0 var(--space-2);
+
+    justify-content: center;
+    align-items: center;
   }
 
-  label.ready {
+  label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: var(--space-min);
+
+    font-size: var(--text-size-2);
+    color: var(--text-color-medium);
+    fill: var(--text-color-medium);
+
+    border-radius: var(--radius-2);
+    user-select: none;
     cursor: pointer;
-    background-color: green;
+  }
+
+  label:hover {
+    background: var(--text-hover-bg);
+  }
+
+  label:active {
+    background: var(--text-active-bg);
   }
 
   div.error {

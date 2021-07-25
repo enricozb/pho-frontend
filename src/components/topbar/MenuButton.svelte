@@ -1,16 +1,25 @@
 <script>
+  import Icon from "../icons/Icon.svelte";
+
   export let active = false;
 </script>
 
-<div class:open={active} on:click={() => (active = !active)} />
+<div class:open={active} on:click={() => (active = !active)}>
+  <Icon name="menu" />
+</div>
 
 <style>
   div {
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    background-color: green;
+    height: 100%;
+
+    margin: 0 var(--space-2) 0 var(--space-2);
+
+    fill: var(--text-color-medium);
+    cursor: pointer;
   }
 
   div.open {

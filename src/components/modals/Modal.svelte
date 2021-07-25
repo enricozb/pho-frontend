@@ -1,5 +1,6 @@
 <script lang="ts">
   import { modal } from "../../stores";
+  import Icon from "../icons/Icon.svelte";
 </script>
 
 <svelte:window on:keydown={(e) => e.key === "Escape" && modal.close()} />
@@ -7,18 +8,16 @@
 <div class="bg" on:click={() => modal.close()} class:visible={$modal.component}>
   <div on:click|stopPropagation class="modal">
     <div class="top">
-      <div class="top-element">{$modal?.title}</div>
-      <svg
-        on:click={() => modal.close()}
-        class="top-element"
-        xmlns="http://www.w3.org/2000/svg"
-        height="24px"
-        width="24px"
-        viewBox="0 0 24 24"
-        ><path d="M0 0h24v24H0V0z" fill="none" /><path
-          d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"
-        /></svg
-      >
+      <div>{$modal?.title}</div>
+      <Icon
+        name="close"
+        onclick={() => modal.close()}
+        style={`
+          height: var(--space-3);
+          fill: var(--text-color-medium);
+          cursor: pointer;
+        `}
+      />
     </div>
     <div class="content">
       <svelte:component this={$modal.component} />
@@ -37,10 +36,9 @@
     left: 0;
 
     position: fixed;
-    background: #000000cc;
+    background: var(--modal-bg-light);
 
     opacity: 0;
-
     pointer-events: none;
   }
 
@@ -52,15 +50,15 @@
   .modal {
     position: absolute;
 
-    max-height: calc(min(500px, 80%));
-    width: calc(min(300px, 80%));
+    max-height: var(--height-card);
+    width: var(--width-card);
 
-    top: calc(50vh - min(500px, 80%) / 2);
-    left: calc(50vw - min(300px, 80%) / 2);
+    top: calc(50vh - var(--height-card) / 2);
+    left: calc(50vw - var(--width-card) / 2);
 
     margin: 0 auto;
 
-    border-radius: 5px;
+    border-radius: var(--radius-2);
     background: white;
   }
 
@@ -68,19 +66,13 @@
     display: flex;
     justify-content: space-between;
 
-    height: 50px;
-    border-bottom: 0.5px solid #ddd;
-    padding: 0 20px 0 20px;
-  }
+    height: var(--space-3);
+    line-height: var(--space-3);
 
-  .top-element {
-    font-weight: 600;
-    line-height: 50px;
-  }
+    padding-left: var(--space-2);
+    padding-right: var(--space-2);
 
-  svg {
-    height: 50px;
-    fill: #444;
-    cursor: pointer;
+    font-weight: var(--text-weight-bold);
+    border-bottom: var(--border-thin);
   }
 </style>

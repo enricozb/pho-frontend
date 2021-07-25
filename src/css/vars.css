@@ -1,0 +1,46 @@
+:root {
+  --text-color-medium: #444;
+  --text-weight-bold: 600;
+  --text-size-3: 12pt;
+  --text-size-2: 10pt;
+  --text-size-1: 8pt;
+
+  --text-hover-bg: #f4f4f4;
+  --text-active-bg: #ddd;
+
+  --modal-bg-light: #000c;
+  --modal-bg-dark: #121212;
+  --modal-bg-dark-transparent: #12121200;
+
+  --fill-light: #eee;
+
+  --red-light: #e63946;
+  --red-dark: #c52633;
+  --purple-light: #6874e833;
+  --purple-dark: #6874e8;
+  --purple-dark-hover: #4e5aca;
+
+  --border-thin: 0.5px solid #ddd;
+  --border-icon: 1px solid white;
+
+  --shadow-card: 2px 2px 5px;
+
+  --height-card: calc(min(700px, 80%));
+  --width-card: calc(min(300px, 80%));
+
+  --radius-circle: calc(max(100vw, 100vh));
+  --radius-2: 5px;
+  --radius-1: 2px;
+
+  --space-5: 100px;
+  --space-4: 75px;
+  --space-3: 50px;
+  --space-2: 25px;
+  --space-1: 10px;
+  --space-min: 5px;
+
+  --tooltip-height: 25px;
+
+  --floating-button-size: var(--space-3);
+  --floating-button-badge-size: 20px;
+}

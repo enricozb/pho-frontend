@@ -36,15 +36,15 @@
 <style>
   div {
     max-width: 100%;
-    margin-top: 10px;
+    margin-top: var(--space-1);
     cursor: pointer;
     user-select: none;
   }
 
   h1 {
-    font-weight: 600;
-    font-size: 12pt;
-    padding: 0 0 10px 5px;
+    font-weight: var(--text-weight-bold);
+    font-size: var(--text-size-3);
+    padding: 0 0 var(--space-1) var(--space-1);
     margin: 0;
   }
 </style>

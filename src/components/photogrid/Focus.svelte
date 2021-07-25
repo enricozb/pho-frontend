@@ -39,25 +39,26 @@
 
 <style>
   div {
+    z-index: 1;
     position: fixed;
     top: 0;
     left: 0;
 
     width: 100%;
     height: 100%;
-    z-index: 1;
 
-    background: #12121200;
+    background: var(--modal-bg-dark-transparent);
   }
 
   div.zoom {
-    background: #121212;
+    background: var(--modal-bg-dark);
   }
 
   img {
     position: fixed;
     top: 0;
     left: 0;
+
     width: 100%;
     height: 100%;
 

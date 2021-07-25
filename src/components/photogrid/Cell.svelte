@@ -3,16 +3,19 @@
   import { cursor, focus, selections } from "../../stores";
   import Checkmark from "./Checkmark.svelte";
 
+  const padding = 2;
+
   export let height: number;
   export let file: FileMetadata;
 
-  // must match double the padding in the styling
-  // TODO(enricozb): consider using var(--height)?
-  // see: https://svelte.dev/repl/4b1c649bc75f44eb9142dadc0322eccd?version=3.6.7
-  const padding = 4;
-
   $: width = (file.dimensions.width / file.dimensions.height) * height;
   $: selected = $selections.has(file.id);
+  $: style = `
+    --height: ${height}px;
+    --width: ${width}px;
+    --padding: ${padding}px;
+    --shrink: ${selected ? "var(--space-2)" : "0px"};
+  `;
 
   function onmouseenter(e: Event) {
     cursor.hover(e.target as HTMLElement as HTMLElement, padding);
@@ -27,20 +30,12 @@
   }
 </script>
 
-<div
-  style={`height: ${height}px; width: ${width}px;`}
-  on:mouseenter|self={onmouseenter}
->
+<div {style} class:selected on:mouseenter={onmouseenter} on:click={onclick}>
   <img
-    class:selected
+    {style}
+    on:click={onclick}
     alt={`photo taken on ${file.time}`}
     src={`http://localhost:4000${file.endpoints.thumb}`}
-    style={`
-      height: ${height - padding - (selected ? 20 : 0)}px;
-      width: ${width - padding - (selected ? 20 : 0)}px;
-      margin: ${selected ? 10 : 0}px;
-    `}
-    on:click={onclick}
   />
   <Checkmark {selected} />
 </div>
@@ -49,15 +44,16 @@
   div {
     position: relative;
     display: inline-block;
-  }
-
-  div:hover > img:not(.selected) {
-    cursor: pointer;
-    transform: scale(0.97);
+    height: var(--height);
+    width: var(--width);
   }
 
   img {
+    pointer-events: none;
     object-fit: cover;
-    padding: 2px;
+    height: calc(var(--height) - var(--padding) - var(--shrink));
+    width: calc(var(--width) - var(--padding) - var(--shrink));
+    padding: var(--padding);
+    margin: calc(var(--shrink) / 2);
   }
 </style>

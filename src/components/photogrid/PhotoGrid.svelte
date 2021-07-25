@@ -1,5 +1,4 @@
-<script lang="ts">
-  import axios from "axios";
+<script lang="ts"> import axios from "axios";
   import type { FileMetadata } from "../../types/api";
   import { computeLayout } from "../../alg/grid";
   import { formatDate } from "../../utils/date";
@@ -46,12 +45,11 @@
     display: flex;
     flex-wrap: wrap;
 
-    justify-content: left;
-    gap: 10px;
+    gap: var(--space-2);
 
     height: 100%;
     width: 100%;
 
-    padding-top: 75px;
+    padding-top: var(--space-4);
   }
 </style>

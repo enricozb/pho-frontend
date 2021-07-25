@@ -1,37 +1,43 @@
 <script lang="ts">
   import { modal, selections } from "../../stores";
   import { AddToAlbum } from "../modals";
+  import Icon from "../icons/Icon.svelte";
 </script>
 
-<div class:visible={$selections.size > 0} on:click={() => modal.show("Add to Album", AddToAlbum)}>
-  <span class="badge">{$selections.size}</span>
-  <span class="tooltip">Move to album</span>
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    class="h-5 w-5"
-    viewBox="0 0 20 20"
-    fill="currentColor"
-  >
-    <path
-      d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-    />
-  </svg>
+<div
+  class:visible={$selections.size > 0}
+  class="button"
+  on:click={() => modal.show("Add to Album", AddToAlbum)}
+>
+  <div class="badge">{$selections.size}</div>
+  <div class="tooltip">
+    Move {$selections.size} item{$selections.size > 1 ? "s" : ""}
+  </div>
+  <Icon
+    name="move_to"
+    style={`
+      width: var(--space-2);
+      height: var(--space-2);
+      margin-top: var(--space-1);
+      fill: white;
+    `}
+  />
 </div>
 
 <style>
-  div {
+  div.button {
     position: fixed;
     z-index: 1;
-    top: calc(100% - 100px);
-    left: calc(100% - 100px);
+    top: calc(100% - var(--space-4));
+    left: calc(100% - var(--space-4));
 
     display: inline-block;
-    width: 60px;
-    height: 60px;
+    width: var(--floating-button-size);
+    height: var(--floating-button-size);
 
-    background: #6874e8;
-    border-radius: 50px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    background: var(--purple-dark);
+    border-radius: var(--radius-circle);
+    box-shadow: var(--shadow-card);
     cursor: pointer;
     opacity: 0;
     text-align: center;
@@ -41,57 +47,55 @@
     opacity: 1;
   }
 
-  div:hover {
-    background: #4e5aca;
+  div.button:hover {
+    background: var(--purple-dark-hover);
   }
 
-  span.badge {
+  div.badge {
     position: absolute;
-    top: -5px;
-    left: 45px;
+    top: calc(var(--floating-button-badge-size) / -4);
+    left: calc(
+      var(--floating-button-size) - 3 * var(--floating-button-badge-size) / 4
+    );
 
-    height: 20px;
-    min-width: 10px;
-    line-height: 20px;
-    padding-left: 5px;
-    padding-right: 5px;
+    height: var(--floating-button-badge-size);
+    line-height: var(--floating-button-badge-size);
+
+    min-width: calc(var(--floating-button-badge-size) / 2);
+    padding-left: calc(var(--floating-button-badge-size) / 4);
+    padding-right: calc(var(--floating-button-badge-size) / 4);
+
+    background: var(--red-light);
+    border-radius: var(--radius-circle);
+    color: white;
+    font-size: var(--text-size-2);
 
     pointer-events: none;
-
-    background: #e63946;
-    border: 0.5px solid #c52633;
-    border-radius: 10px;
-    color: white;
-    font-size: 10pt;
   }
 
-  span.tooltip {
+  div.tooltip {
     position: absolute;
-    top: 18px;
-    left: -90px;
+    top: calc(var(--floating-button-size) / 2 - var(--tooltip-height) / 2);
+    right: calc(var(--floating-button-size) + var(--space-1));
 
-    height: 16px;
-    padding: 4px;
+    height: var(--tooltip-height);
+    line-height: var(--tooltip-height);
 
-    pointer-events: none;
+    padding-left: var(--space-min);
+    padding-right: var(--space-min);
 
-    background: #35353577;
-    border-radius: 3px;
+    background: var(--modal-bg-light);
+    border-radius: var(--radius-2);
     color: white;
-    font-size: 8pt;
+    font-size: var(--text-size-1);
+    white-space: nowrap;
+
     opacity: 0;
+    pointer-events: none;
   }
 
-  div:hover > span.tooltip {
+  div:hover > div.tooltip {
     opacity: 1;
-    transition-delay: 0.5s;
-  }
-
-  svg {
-    width: 25px;
-    height: 25px;
-    margin-top: 17px;
-
-    fill: white;
+    transition-delay: 0.3s;
   }
 </style>

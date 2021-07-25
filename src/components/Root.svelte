@@ -2,6 +2,8 @@
   import Modal from "./modals/Modal.svelte";
   import PhotoGrid from "./photogrid/PhotoGrid.svelte";
   import Topbar from "./topbar/Topbar.svelte";
+
+  import "../css/vars.css";
 </script>
 
 <main>
@@ -18,13 +20,13 @@
     transition: all 0.2s ease;
   }
 
+  :global(body::-webkit-scrollbar) {
+    display: none;
+  }
+
   :global(body) {
     padding: 0px;
     overflow-x: hidden;
-  }
-
-  :global(body::-webkit-scrollbar) {
-    display: none;
   }
 
   main {
