@@ -1,12 +1,20 @@
 <script lang="ts">
   import { navigate } from "svelte-navigator";
 
+  import { api } from "../../api";
+
   export let id: string;
   export let name: string;
+
+  const cover = api.albumCover(id);
 </script>
 
 <div class="row" on:click={() => navigate(`/album/${id}`)}>
-  <div class="image" />
+  {#await cover}
+    <div class="image" />
+  {:then cover}
+    <img alt="album cover" src={`http://localhost:4000${cover.cover}`} class="image" />
+  {/await}
   <div>
     {name}
   </div>
@@ -37,7 +45,7 @@
     background: var(--text-hover-bg);
   }
 
-  div.image {
+  img, div.image {
     height: calc(var(--space-3) - var(--space-2) / 2);
     width: calc(var(--space-3) - var(--space-2) / 2);
 

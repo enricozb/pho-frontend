@@ -17,4 +17,10 @@ export namespace api {
       })
       .then((json) => json.data);
   }
+
+  export async function albumCover(albumId: string) {
+    return await axios
+      .get<{cover?: string}>(`http://localhost:4000/albums/${albumId}/cover`)
+      .then((json) => json.data);
+  }
 }
