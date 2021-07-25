@@ -1,6 +1,7 @@
 <script lang="ts">
-  import axios from "axios";
   import type { FileMetadata } from "../../types/api";
+
+  import { api } from "../../api";
   import { computeLayout } from "../../alg/grid";
   import { formatDate } from "../../utils/date";
   import { focus, modal, selections } from "../../stores";
@@ -12,10 +13,9 @@
 
   let clientWidth: number;
 
+  export let files: { [date: string]: FileMetadata[] };
   // TODO(enricozb): make a common fetcher that adds the endpoint for us?
-  const filesByDate = axios
-    .get<{ [date: string]: FileMetadata[] }>("http://localhost:4000/files/all")
-    .then((json) => json.data);
+  $: filesByDate = files ? new Promise((r) => r(files)) : api.allMedia();
 </script>
 
 <svelte:window

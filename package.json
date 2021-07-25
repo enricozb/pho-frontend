@@ -8,7 +8,7 @@
     "electron": "electron .",
     "build-svelte": "rollup -c",
     "svelte": "rollup -c -w",
-    "start": "sirv public --no-clear",
+    "start": "sirv public --no-clear --single",
     "validate": "svelte-check",
     "svelte-electron": "run-p svelte electron"
   },

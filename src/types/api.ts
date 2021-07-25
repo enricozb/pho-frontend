@@ -20,4 +20,5 @@ export type FileMetadata = {
 export type Album = {
   id: string;
   name: string;
+  files: { [date: string]: FileMetadata[] };
 };

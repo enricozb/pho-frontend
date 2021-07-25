@@ -1,17 +1,25 @@
 import axios from "axios";
 
-import type { Album } from "../types/api";
+import type { Album, FileMetadata } from "../types/api";
 
 export namespace api {
+  export async function allMedia() {
+    return await axios
+      .get<{ [date: string]: FileMetadata[] }>(
+        "http://localhost:4000/files/all"
+      )
+      .then((json) => json.data);
+  }
+
   export async function getAlbums() {
     return await axios
-      .get<Album[]>("http://localhost:4000/albums")
+      .get<Pick<Album, "id" | "name">[]>("http://localhost:4000/albums")
       .then((json) => json.data);
   }
 
   export async function newAlbum(fileIds: string[]) {
     return await axios
-      .post<{ id: string }>("http://localhost:4000/albums", {
+      .post<Pick<Album, "id">>("http://localhost:4000/albums", {
         name: "Untitled",
         files: fileIds,
       })
@@ -20,7 +28,13 @@ export namespace api {
 
   export async function albumCover(albumId: string) {
     return await axios
-      .get<{cover?: string}>(`http://localhost:4000/albums/${albumId}/cover`)
+      .get<{ cover?: string }>(`http://localhost:4000/albums/${albumId}/cover`)
+      .then((json) => json.data);
+  }
+
+  export async function albumData(albumId: string) {
+    return await axios
+      .get<Album>(`http://localhost:4000/albums/${albumId}`)
       .then((json) => json.data);
   }
 }
