@@ -1,8 +1,11 @@
 <script lang="ts">
   import { onDestroy } from "svelte";
+  import { navigate } from "svelte-navigator";
 
   import { api } from "../../api";
   import { escape } from "../../keyboard/escape";
+  import Icon from "../icons/Icon.svelte";
+  import Row from "../common/Row.svelte";
   import AlbumRow from "../common/AlbumRow.svelte";
 
   export let active: boolean;
@@ -25,6 +28,17 @@
 </script>
 
 <div class="container" class:active>
+  <div class="section">library</div>
+  <Row text="All Media" onclick={() => navigate("/")}>
+    <Icon
+      name="image"
+      style={`
+      height: 100%;
+      fill: var(--text-color-medium);
+    `}
+    />
+  </Row>
+
   <div class="section">albums</div>
   {#await albums then albums}
     {#each albums as { id, name } (id)}

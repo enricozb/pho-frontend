@@ -35,9 +35,9 @@ class EscapeStack {
     return cleanup;
   }
 
-  propagate() {
+  propagate(force = false) {
     for (let i = this.stack.length - 1; i >= 0; i--) {
-      if (this.stack[i]()) {
+      if (this.stack[i]() && !force) {
         break;
       }
     }
