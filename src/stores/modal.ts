@@ -4,6 +4,7 @@ import { escape } from "../keyboard/escape";
 
 type ModalData = {
   component?: typeof SvelteComponent;
+  props?: { [prop: string]: any };
   title?: string;
   visible: boolean;
 };
@@ -18,8 +19,12 @@ class Modal {
   private prevBodyPosition: string;
   private prevBodyOverflow: string;
 
-  show(title: string, component: typeof SvelteComponent) {
-    this.data = { title, component, visible: true };
+  show(
+    title: string,
+    component: typeof SvelteComponent,
+    props: { [prop: string]: any } = {}
+  ) {
+    this.data = { title, component, props, visible: true };
     this.publish();
 
     this.disableScroll();

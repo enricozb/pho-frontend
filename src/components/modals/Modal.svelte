@@ -9,15 +9,14 @@
   <div on:click|stopPropagation class="modal">
     <div class="top">
       <div>{$modal?.title}</div>
-      <Icon
-        name="close"
-        onclick={() => modal.close()}
-        style={`
-          height: var(--space-3);
-          fill: var(--text-color-medium);
-          cursor: pointer;
-        `}
-      />
+      <div class="close" on:click={() => modal.close()}>
+        <Icon
+          name="close"
+          style={`
+            fill: var(--text-color-medium);
+          `}
+        />
+      </div>
     </div>
     <div class="content">
       <svelte:component this={$modal.component} />
@@ -50,7 +49,7 @@
   .modal {
     position: absolute;
     display: flex;
-    flex-direction: column;
+    flex-flow: column;
 
     max-height: var(--height-card);
     width: var(--width-card);
@@ -68,10 +67,12 @@
 
   .top {
     display: flex;
+    align-items: center;
     justify-content: space-between;
 
+    flex: 0 0 auto;
+
     height: var(--space-3);
-    line-height: var(--space-3);
 
     padding-left: var(--space-2);
     padding-right: var(--space-2);
@@ -82,6 +83,24 @@
 
   .content {
     overflow-y: auto;
-    margin-bottom: var(--space-1);
+    padding-bottom: var(--space-1);
+  }
+
+  .close {
+    display: flex;
+    place-items: center;
+
+    padding: var(--space-1);
+    border-radius: var(--radius-circle);
+
+    cursor: pointer;
+  }
+
+  .close:hover {
+    background: var(--text-hover-bg);
+  }
+
+  .close:hover:active {
+    background: var(--text-active-bg);
   }
 </style>

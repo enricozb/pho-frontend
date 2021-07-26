@@ -37,6 +37,10 @@
 {/await}
 
 <style>
+  div {
+    user-select: none;
+  }
+
   div.row {
     display: flex;
     width: 100%;

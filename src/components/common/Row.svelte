@@ -32,6 +32,7 @@
     padding-left: var(--padding);
 
     cursor: pointer;
+    user-select: none;
 
     transition: all 0s;
   }

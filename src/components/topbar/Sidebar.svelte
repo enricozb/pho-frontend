@@ -61,10 +61,10 @@
     position: fixed;
 
     top: var(--space-3);
-    left: calc(-1 * var(--width-card));
+    left: calc(-1 * var(--width-sidebar));
 
     height: calc(100vh - var(--space-3));
-    width: var(--width-card);
+    width: var(--width-sidebar);
 
     overflow-y: auto;
 

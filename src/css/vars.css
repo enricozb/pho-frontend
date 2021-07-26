@@ -36,7 +36,9 @@
   --shadow-card: 2px 2px 5px;
 
   --height-card: calc(min(700px, 80%));
-  --width-card: calc(min(300px, 80%));
+  --width-card: calc(min(400px, 80%));
+
+  --width-sidebar: calc(min(300px, 100%));
 
   --radius-circle: calc(max(100vw, 100vh));
   --radius-2: 5px;

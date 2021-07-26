@@ -1,9 +1,10 @@
 <script lang="ts">
   import { api } from "../../api";
-  import { album, cursor } from "../../stores";
+  import { album, cursor, modal } from "../../stores";
   import { escape } from "../../keyboard/escape";
 
   import Row from "./Row.svelte";
+  import { DeleteAlbum } from "../modals";
   import Icon from "../icons/Icon.svelte";
 
   export let id: string;
@@ -23,7 +24,10 @@
   {#await cover then cover}
     <img alt="album cover" src={`http://localhost:4000${cover.cover}`} />
   {/await}
-  <div slot="right-button" on:click|stopPropagation={() => {}}>
+  <div
+    slot="right-button"
+    on:click|stopPropagation={() => modal.show("Delete Album", DeleteAlbum)}
+  >
     <Icon
       name="trash"
       style={`
