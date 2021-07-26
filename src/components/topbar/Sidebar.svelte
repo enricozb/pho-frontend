@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onDestroy } from "svelte";
-  import { navigate } from "svelte-navigator";
 
   import { api } from "../../api";
+  import { album, cursor } from "../../stores";
   import { escape } from "../../keyboard/escape";
   import Icon from "../icons/Icon.svelte";
   import Row from "../common/Row.svelte";
@@ -29,7 +29,15 @@
 
 <div class="container" class:active>
   <div class="section">library</div>
-  <Row text="All Media" onclick={() => navigate("/")}>
+  <Row
+    text="All Media"
+    onclick={() => {
+      // TODO(enricozb): move this somewhere common
+      cursor.clear();
+      escape.propagate(/* force */ true);
+      album.set(null);
+    }}
+  >
     <Icon
       name="image"
       style={`

@@ -1,7 +1,6 @@
 <script lang="ts">
-  import { navigate } from "svelte-navigator";
-
   import { api } from "../../api";
+  import { album, cursor } from "../../stores";
   import { escape } from "../../keyboard/escape";
 
   import Row from "./Row.svelte";
@@ -15,8 +14,9 @@
 <Row
   text={name}
   onclick={() => {
+    cursor.clear();
     escape.propagate(/* force */ true);
-    navigate(`/album/${id}`);
+    album.set(id);
   }}
 >
   {#await cover then cover}

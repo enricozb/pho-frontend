@@ -1,10 +1,13 @@
 <script lang="ts">
   import { api } from "../../api";
+  import type { Album } from "../../types/api";
+  import { album } from "../../stores";
+
   import PhotoGrid from "../photogrid/PhotoGrid.svelte";
   import Topbar from "../topbar/Topbar.svelte";
 
-  export let albumId: string;
-  $: album = api.albumData(albumId);
+  let albumData: Promise<Album> | null;
+  $: albumData = $album && api.albumData($album);
 
   function onkeydown(e: KeyboardEvent) {
     if (e.key === "Enter") {
@@ -13,21 +16,25 @@
   }
 
   function onTitleChange(e: Event) {
-    api.renameAlbum(albumId, (e.target as HTMLInputElement).value);
+    api.renameAlbum($album, (e.target as HTMLInputElement).value);
   }
 </script>
 
-<Topbar title="" />
+<Topbar title={$album ? "Album Viewer" : "All Media"} />
 <div class="container">
-  {#await album then album}
-    <input
-      class="title"
-      value={album.name}
-      on:change={onTitleChange}
-      on:keydown={onkeydown}
-    />
-    <PhotoGrid files={album.files} />
-  {/await}
+  {#if albumData}
+    {#await albumData then albumData}
+      <input
+        class="title"
+        value={albumData.name}
+        on:change={onTitleChange}
+        on:keydown={onkeydown}
+      />
+      <PhotoGrid files={albumData.files} />
+    {/await}
+  {:else}
+    <PhotoGrid />
+  {/if}
 </div>
 
 <style>

@@ -2,8 +2,7 @@
   import { Route, Router } from "svelte-navigator";
 
   import Modal from "./modals/Modal.svelte";
-  import AllMedia from "./pages/AllMedia.svelte";
-  import AlbumMedia from "./pages/AlbumMedia.svelte";
+  import MediaViewer from "./pages/MediaViewer.svelte";
 
   import "../css/vars.css";
 </script>
@@ -11,8 +10,7 @@
 <main>
   <Modal />
   <Router>
-    <Route path="/" component={AllMedia} />
-    <Route path="album/:albumId" component={AlbumMedia} />
+    <Route path="/" component={MediaViewer} />
   </Router>
 </main>
 

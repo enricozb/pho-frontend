@@ -14,6 +14,11 @@ class Cursor {
     this.subscribers = new Set();
   }
 
+  clear() {
+    this.data = { x: 0, y: 0, width: 0, height: 0 };
+    this.publish();
+  }
+
   subscribe(sub: (value: CursorData) => void): () => void {
     sub(this.data);
     this.subscribers.add(sub);
@@ -25,13 +30,16 @@ class Cursor {
 
   set(data: CursorData) {
     this.data = data;
+    this.publish()
+  }
 
+  private publish() {
     for (const sub of this.subscribers) {
       sub(this.data);
     }
   }
 
-  _hover(el: HTMLElement, padding: number) {
+  private _hover(el: HTMLElement, padding: number) {
     const halfpad = padding / 2;
     const rect = el.getBoundingClientRect();
     this.set({
