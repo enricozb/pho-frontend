@@ -4,7 +4,12 @@
   export let active = false;
 </script>
 
-<div on:click={() => (active = !active)}>
+<div
+  on:click={() => {
+    console.log("click");
+    active = !active;
+  }}
+>
   <Icon name="menu" />
 </div>
 
@@ -14,9 +19,14 @@
     justify-content: center;
     align-items: center;
 
-    height: 100%;
+    padding: var(--space-1);
+    border-radius: var(--radius-circle);
 
     fill: var(--text-color-medium);
     cursor: pointer;
+  }
+
+  div:hover {
+    background: var(--text-hover-bg);
   }
 </style>

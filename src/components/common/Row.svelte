@@ -10,6 +10,9 @@
   <div>
     {text}
   </div>
+  <div class="right-button">
+    <slot name="right-button" />
+  </div>
 </div>
 
 <style>
@@ -48,5 +51,19 @@
     border-radius: var(--radius-2);
 
     overflow: hidden;
+  }
+
+  div.right-button {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: var(--space-1);
+
+    flex: 1;
+
+    opacity: 0;
+  }
+
+  div.row:hover > div.right-button {
+    opacity: 1;
   }
 </style>

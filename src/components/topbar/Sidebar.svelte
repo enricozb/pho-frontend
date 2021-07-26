@@ -73,6 +73,8 @@
     box-sizing: border-box;
 
     padding-bottom: var(--space-2);
+
+    user-select: none;
   }
 
   div.active {
